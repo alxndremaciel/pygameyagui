@@ -15,7 +15,6 @@ release = '1.0.0'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'myst_parser',
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.autodoc',
 ]
