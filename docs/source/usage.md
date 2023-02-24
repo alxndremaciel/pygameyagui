@@ -31,7 +31,7 @@ interface = yagui.Interface()
 .. autoclass:: pygameyagui.Interface
 ```
 
-## Creating an Toolbox 
+## Creating an Toolbox
 
 Create a {py:class}`pygameyagui.base.toolbox.Toolbox` object with:
 
