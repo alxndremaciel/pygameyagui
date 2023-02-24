@@ -27,6 +27,8 @@ extensions = [
     'sphinx.ext.autodoc',
 ]
 
+autodoc_mock_imports = ['pygame']
+
 templates_path = ['_templates']
 exclude_patterns = []
 
