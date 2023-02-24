@@ -1,12 +1,17 @@
 [build-system]
-requires = ["flit_core >=3.2,<4",
-        "pygame",
-        "sphinx",
-        "myst-parser",
-        "furo",]
+requires = [
+        "flit_core >=3.2,<4",
+        "pygame",]
 build-backend = "flit_core.buildapi"
 
 [project]
 name = "pygameyagui"
 authors = [{name= "Alexandre Maciel", email= "acmaciel@ufpi.edu.br"}]
 dynamic = ["version", "description"]
+
+[project.optional-dependencies]
+doc = [
+    "sphinx",
+    "myst-parser",
+    "furo",
+    ]
