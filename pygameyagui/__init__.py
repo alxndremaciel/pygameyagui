@@ -44,7 +44,7 @@ class Interface:
     :param show_status_bar: Flag to show or hide the status bar.
     :type show_status_bar: bool (optional)
 
-    :param show_controls: Flag to show or hide the controls at the top right corner of the screen. Buttons for pause/resume, reload simulations and toolboxes (:class:`pygameyagui.toolbox.Toolbox`) list is located at the controls.
+    :param show_controls: Flag to show or hide the controls at the top right corner of the screen. Buttons for pause/resume, reload simulations and toolboxes (:class:`base.toolbox.Toolbox`) list is located at the controls.
     :type show_controls: bool (optional)
 
     :param [screen_bg_color]: Screen background color in the format (R,G,B).
