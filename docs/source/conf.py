@@ -9,8 +9,8 @@
 project = 'Pygame-YaGUI'
 copyright = '2023, Alexandre Maciel'
 author = 'Alexandre Maciel'
-
-release = "1.0.0"
+import importlib.metadata
+release =  importlib.metadata.version('pygameyagui')
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

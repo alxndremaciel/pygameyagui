@@ -1,6 +1,7 @@
 """Pygame-YaGUI is Yet another GUI for Pygame."""
 
-__version__ = "1.0.0"
+import importlib.metadata
+__version__ = importlib.metadata.version(__package__ or __name__)
 
 from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
