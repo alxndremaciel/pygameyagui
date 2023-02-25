@@ -23,18 +23,18 @@ Rename the folder `pygameyagui-main` to `pygameyagui` and put this folder in the
 
     import sys
     import pygame
-    import pygameyagui as yagui
+    import pygameyagui as ya
 
     pygame.init()
 ```
 
-You are all set to use the Pygame-YaGUI environment. You will need to create an interface ({py:class}`pygameyagui.Interface`) that is necessary for hosting (any amount of) toolboxes ({py:class}`pygameyagui.base.toolbox.Toolbox`). Each toolbox can have (any amount of) your widgets. Have fun!
+You are all set to use the Pygame-YaGUI environment. You will need to create an interface ({py:class}`pygameyagui.Interface`) that is necessary for hosting (any amount of) toolboxes ({py:class}`pygameyagui.Toolbox`). Each toolbox can have (any amount of) your widgets. Have fun!
 
 ## Creating an Interface
 
 Create an {py:class}`pygameyagui.Interface` object with:
 ```python
-interface = yagui.Interface()
+interface = ya.Interface()
 ```
 
 ```{eval-rst} 
@@ -43,16 +43,15 @@ interface = yagui.Interface()
 
 ## Creating a Toolbox
 
-Create a {py:class}`pygameyagui.base.toolbox.Toolbox` object with:
+Create a {py:class}`pygameyagui.Toolbox` object with:
 
 ```python
-toolbox = yagui.Toolbox(interface, 'This is a Toolbox')
+toolbox = ya.Toolbox(interface, 'This is a Toolbox')
 ```
  
 ```{eval-rst}
-.. autoclass:: pygameyagui.base.toolbox.Toolbox
+.. autoclass:: pygameyagui.Toolbox
 ``` 
-
 ## Creating a Widget
 
 A Widget object can be of two types: _output_ and _input_

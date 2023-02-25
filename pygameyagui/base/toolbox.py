@@ -5,8 +5,13 @@ from ..include import draw
 from ..include.error import raise_type_error
 
 class Toolbox:
-    """
-    This class creates a toolbox objetc.
+    """This class creates a toolbox objetc.
+
+    :param interface: The interface created.
+    :type interface: :class:`pygameyagui.Interface`
+    
+    :param title: Toolbox title.
+    :type title: str
     """
     def __init__(self, interface, title):
         self._set_interface(interface)
