@@ -35,13 +35,13 @@ class Interface:
     It will configure the FPS rate, window dimensions, status bar, controls and background color. It should be called after pygame.init() and uses pygame.display.set_mode() and pygame.time.Clock() to configure pygame environment.
     
     :param fps: Frames Per Second rate to update the screen. It does not influence the rate of simulation (IPS - Iteration per Seconds) which is only limited by the processing power of the CPU.
-    :type fps: int (optional)
+    :type fps: int [>0] (optional)
     
     :param window_width: The window width in pixels.
-    :type window_width: int (optional)
+    :type window_width: int [>0] (optional)
     
     :param window_height: The window height in pixels.
-    :type window_height: int (optional)
+    :type window_height: int [>0] (optional)
 
     :param show_status_bar: Flag to show or hide the status bar.
     :type show_status_bar: bool (optional)
@@ -50,7 +50,7 @@ class Interface:
     :type show_controls: bool (optional)
 
     :param screen_bg_color: Screen background color in the format (R,G,B).
-    :type screen_bg_color: tuple (optional)
+    :type screen_bg_color: tuple (0<R,G,B<255) (optional)
     """
     def __init__(self,
                  fps = ct.INTERFACE_CONFIG_FPS,
@@ -98,7 +98,9 @@ class Interface:
 
         All the parameters of this methods can be set during the interface instantiation. However, one may need (programatically) to change this parameters during the execution of a simulation.
 
-        Please, do refer to the parameters description of the :class:`pygameyagui.Interface`
+        Although all parameters in this method default to None, internally they will be left unchanged if not passed. Therefore, any combination of parameters can be passed as arguments. Also, this method can be called anytime and anywhere after the interface instantiation.
+
+        Please, do refer to the parameters description of the :class:`pygameyagui.Interface`.
         '''
 
         if fps is not None:

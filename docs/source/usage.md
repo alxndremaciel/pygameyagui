@@ -23,7 +23,7 @@ Rename the folder `pygameyagui-main` to `pygameyagui` and put this folder in the
 
     import sys
     import pygame
-    import pygameyagui as ya
+    import pygameyagui
 
     pygame.init()
 ```
@@ -34,14 +34,19 @@ You are all set to use the Pygame-YaGUI environment. You will need to create an 
 
 Create an {py:class}`pygameyagui.Interface` object with:
 ```python
-interface = ya.Interface()
+interface = pygameyagui.Interface()
+```
+
+```{admonition} Documentation
+:class: note 
+Refer to {ref}`Interface Documentation` for arguments, methods, properties and attributes.
 ```
 ## Creating a Toolbox
 
 Create a {py:class}`pygameyagui.Toolbox` object with:
 
 ```python
-toolbox = ya.Toolbox(interface, 'This is a Toolbox')
+toolbox = pygameyagui.Toolbox(interface, 'This is a Toolbox')
 ```
  
 ```{eval-rst}
