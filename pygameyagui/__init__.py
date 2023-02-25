@@ -35,7 +35,6 @@ class Interface:
     It will configure the FPS rate, window dimensions, status bar, controls and background color. It should be called after pygame.init() and uses pygame.display.set_mode() and pygame.time.Clock() to configure pygame environment.
     
     :param fps: Frames Per Second rate to update the screen. It does not influence the rate of simulation (IPS - Iteration per Seconds) which is only limited by the processing power of the CPU.
-
     :type fps: int (optional)
     
     :param window_width: The window width in pixels.
@@ -50,12 +49,9 @@ class Interface:
     :param show_controls: Flag to show or hide the controls at the top right corner of the screen. Buttons for pause/resume, reload simulations and toolboxes (:class:`base.toolbox.Toolbox`) list is located at the controls.
     :type show_controls: bool (optional)
 
-    :param [screen_bg_color]: Screen background color in the format (R,G,B).
-    :type [screen_bg_color]: tuple (optional)
-    
-    :return: None
-    :rtype: NoneType
-"""
+    :param screen_bg_color: Screen background color in the format (R,G,B).
+    :type screen_bg_color: tuple (optional)
+    """
     def __init__(self,
                  fps = ct.INTERFACE_CONFIG_FPS,
                  window_width = ct.INTERFACE_CONFIG_WINDOW_WIDTH,

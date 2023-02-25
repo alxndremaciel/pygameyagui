@@ -2,9 +2,16 @@
 
 ## Installation
 
-Currently, you can download the zip package on github:
+Install PygameYaGUI using pip:
 
->[Pygame-YaGUI on GitHub](https://github.com/alxndremaciel/pygameyagui/archive/refs/heads/main.zip)
+```console
+$ pip install pygameyagui
+```
+```{admonition} About Python version
+This package was developed and tested using Python 3.8. Users with other Python versions, please be aware of unforeseen consequences.
+```
+
+Also, you can download the zip package of [Pygame-YaGUI.](https://github.com/alxndremaciel/pygameyagui/archive/refs/heads/main.zip)
 
 ## Importing
 
@@ -26,11 +33,8 @@ You are all set to use the Pygame-YaGUI environment. You will need to create an 
 ## Creating an Interface
 
 Create an {py:class}`pygameyagui.Interface` object with:
-```{eval-rst}
-.. code-block:: python
-    :linenos:
-
-    interface = yagui.Interface()
+```python
+interface = yagui.Interface()
 ```
 
 ```{eval-rst} 
@@ -41,6 +45,10 @@ Create an {py:class}`pygameyagui.Interface` object with:
 
 Create a {py:class}`pygameyagui.base.toolbox.Toolbox` object with:
 
+```python
+toolbox = yagui.Toolbox(interface, 'This is a Toolbox')
+```
+ 
 ```{eval-rst}
 .. autoclass:: pygameyagui.base.toolbox.Toolbox
 ``` 

@@ -5,6 +5,9 @@ from ..include import draw
 from ..include.error import raise_type_error
 
 class Toolbox:
+    """
+    This class creates a toolbox objetc.
+    """
     def __init__(self, interface, title):
         self._set_interface(interface)
         self._surface = interface._surface
