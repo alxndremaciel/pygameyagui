@@ -55,18 +55,17 @@ class Interface:
     def __init__(self,
                  fps = ct.INTERFACE_CONFIG_FPS,
                  window_width = ct.INTERFACE_CONFIG_WINDOW_WIDTH,
-                 window_heigth = ct.INTERFACE_CONFIG_WINDOW_HEIGHT,
+                 window_height = ct.INTERFACE_CONFIG_WINDOW_HEIGHT,
                  show_status_bar = ct.INTERFACE_CONFIG_SHOW_STATUS_BAR,
                  show_controls = ct.INTERFACE_CONFIG_SHOW_CONTROLS,
                  screen_bg_color = ct.INTERFACE_CONFIG_SCREEN_BG_COLOR):
         self.config(fps = fps,
                     window_width = window_width,
-                    window_heigth = window_heigth,
+                    window_height = window_height,
                     show_status_bar = show_status_bar,
                     show_controls = show_controls,
                     screen_bg_color = screen_bg_color)
 
-        self._surface = pygame.display.set_mode((self._window_width, self._window_heigth))
         self._clock = pygame.time.Clock()
         
         pygame.font.get_init()
@@ -91,7 +90,10 @@ class Interface:
         self._init_hamburger_menu()
         self._active = True
 
-    def config(self, fps=None, window_width=None, window_heigth=None, show_status_bar=None, show_controls=None, screen_bg_color=None):
+    def _define_surface(self):
+        self._surface = pygame.display.set_mode((self._window_width, self._window_height))
+
+    def config(self, fps=None, window_width=None, window_height=None, show_status_bar=None, show_controls=None, screen_bg_color=None):
         '''Use this to change the interface settings during runtime.
 
         All the parameters of this methods can be set during the interface instantiation. However, one may need (programatically) to change this parameters during the execution of a simulation.
@@ -114,12 +116,15 @@ class Interface:
                 raise_value_error(f'window_width expect an integer greater than zero. Instead, {window_width} was given.')
             self._window_width = window_width 
 
-        if window_heigth is not None:
-            if not isinstance(window_heigth, int):
-                raise_type_error(window_heigth, 'window_heigth', 'integer')
-            if window_heigth <= 0:
-                raise_value_error(f'window_heigth expect an integer greater than zero. Instead, {window_heigth} was given.')
-            self._window_heigth = window_heigth
+        if window_height is not None:
+            if not isinstance(window_height, int):
+                raise_type_error(window_height, 'window_height', 'integer')
+            if window_height <= 0:
+                raise_value_error(f'window_height expect an integer greater than zero. Instead, {window_height} was given.')
+            self._window_height = window_height
+
+        if window_width is not None or window_height is not None:
+            self._define_surface()
 
         if show_status_bar is not None:
             if not isinstance(show_status_bar, bool):
@@ -143,16 +148,16 @@ class Interface:
             self._screen_bg_color = screen_bg_color
 
     @property
-    def screen_width(self):
+    def window_width(self):
         return self._window_width
 
     @property
     def screen_height(self):
-        return self._window_heigth
+        return self._window_height
 
     @property
     def screen_center(self):
-        return int(0.5*self._window_width), int(0.5*self._window_heigth)
+        return int(0.5*self._window_width), int(0.5*self._window_height)
 
     @property
     def screen_toplef(self):
@@ -164,11 +169,11 @@ class Interface:
 
     @property
     def screen_bottomleft(self):
-        return 0, self._window_heigth
+        return 0, self._window_height
 
     @property
     def screen_bottomright(self):
-        return self._window_width, self._window_heigth
+        return self._window_width, self._window_height
 
     @property
     def screen_midtop(self):
@@ -176,19 +181,19 @@ class Interface:
 
     @property
     def screen_midbottom(self):
-        return int(0.5*self._window_width), self._window_heigth
+        return int(0.5*self._window_width), self._window_height
 
     @property
     def screen_midleft(self):
-        return 0, int(0.5*self._window_heigth)
+        return 0, int(0.5*self._window_height)
 
     @property
     def screen_midright(self):
-        return self._window_width, int(0.5*self._window_heigth)
+        return self._window_width, int(0.5*self._window_height)
 
     @property
     def screen_rect(self):
-        return pygame.Rect(0,0,self._window_width,self._window_heigth)
+        return pygame.Rect(0,0,self._window_width,self._window_height)
 
     @property
     def mouse(self):
@@ -228,7 +233,7 @@ class Interface:
 
     def contains_point(self, point):
         x, y = point
-        return x >= 0 and x <= self.screen_width and y >= 0 and y <= self.screen_height
+        return x >= 0 and x <= self.window_width and y >= 0 and y <= self.screen_height
 
     def pause_and_reset(self):
         self._run = False
@@ -473,8 +478,8 @@ class Interface:
 
     def _draw_status_bar(self):
         # Draw the bar
-        self._stats_bar_rect = pygame.Rect(0,0, self._window_width, ct.INTERFACE_STATUSBAR_HEIGTH)
-        self._stats_bar_rect.bottom = self._window_heigth
+        self._stats_bar_rect = pygame.Rect(0,0, self._window_width, ct.INTERFACE_STATUSBAR_height)
+        self._stats_bar_rect.bottom = self._window_height
         pygame.draw.rect(self._surface, ct.INTERFACE_STATUSBAR_COLOR, self._stats_bar_rect)
         
         if len(self._ipss) == ct.INTERFACE_IPS_AVERAGE and \

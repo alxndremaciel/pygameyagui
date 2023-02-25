@@ -10,30 +10,30 @@ class Button(Widget):
         self._max_size = ct.BUTTON_MAX_SIZE_FACTOR
         self.size = ct.BUTTON_DEFAULT_SIZE_FACTOR
         self.being_pressed = False
-        self.trigged = False
+        self.clicked = False
         
     @property
-    def trigged(self):
-        return self._trigged
+    def clicked(self):
+        return self._clicked
 
-    @trigged.setter
-    def trigged(self, _trigged):
+    @clicked.setter
+    def clicked(self, _clicked):
         if self._enabled:
-            if isinstance(_trigged, bool):
-                self._trigged = _trigged
+            if isinstance(_clicked, bool):
+                self._clicked = _clicked
             else:
-                raise ValueError(f'trigged expect a boolean as argument. Instead, type {type(_trigged)} was given.')
+                raise ValueError(f'clicked expect a boolean as argument. Instead, type {type(_clicked)} was given.')
 
     def activate(self):
         if self._enabled:
-            self._trigged = True
+            self._clicked = True
 
     def deactivate(self):
-        self._trigged = False
+        self._clicked = False
 
     def toggle(self):
         if self._enabled:
-            self._trigged = not(self._trigged)
+            self._clicked = not(self._clicked)
 
     def _show(self):
         bg_color = ct.BUTTON_BG_COLOR
