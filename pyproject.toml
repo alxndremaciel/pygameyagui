@@ -7,7 +7,7 @@ build-backend = "flit_core.buildapi"
 [project]
 name = "pygameyagui"
 authors = [{name= "Alexandre Maciel", email= "acmaciel@ufpi.edu.br"}]
-version = "1.1.1"
+version = "0.1"
 dynamic = ["description"]
 
 [project.optional-dependencies]
