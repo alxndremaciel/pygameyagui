@@ -36,11 +36,6 @@ Create an {py:class}`pygameyagui.Interface` object with:
 ```python
 interface = ya.Interface()
 ```
-
-```{eval-rst} 
-.. autoclass:: pygameyagui.Interface
-```
-
 ## Creating a Toolbox
 
 Create a {py:class}`pygameyagui.Toolbox` object with:

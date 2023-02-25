@@ -91,43 +91,56 @@ class Interface:
         self._init_hamburger_menu()
         self._active = True
 
-    def config(self, fps, window_width, window_heigth, show_status_bar, show_controls, screen_bg_color):
-        if not isinstance(fps, int):
-            raise_type_error(fps, 'fps', 'integer')
-        if fps <= 0:
-            raise_value_error(f'fps expect an integer greater than zero. Instead, {fps} was given.')
-        self._fps = fps
-        self._frame_dt = 1.0 / fps
+    def config(self, fps=None, window_width=None, window_heigth=None, show_status_bar=None, show_controls=None, screen_bg_color=None):
+        '''Use this to change the interface settings during runtime.
 
-        if not isinstance(window_width, int):
-            raise_type_error(window_width, 'window_width', 'integer')
-        if window_width <= 0:
-            raise_value_error(f'window_width expect an integer greater than zero. Instead, {window_width} was given.')
-        self._window_width = window_width 
+        All the parameters of this methods can be set during the interface instantiation. However, one may need (programatically) to change this parameters during the execution of a simulation.
 
-        if not isinstance(window_heigth, int):
-            raise_type_error(window_heigth, 'window_heigth', 'integer')
-        if window_heigth <= 0:
-            raise_value_error(f'window_heigth expect an integer greater than zero. Instead, {window_heigth} was given.')
-        self._window_heigth = window_heigth
+        Please, do refer to the parameters description of the :class:`pygameyagui.Interface`
+        '''
 
-        if not isinstance(show_status_bar, bool):
-            raise_type_error(show_status_bar, 'show_status_bar', 'bool')
-        self._show_status_bar = show_status_bar
+        if fps is not None:
+            if not isinstance(fps, int):
+                raise_type_error(fps, 'fps', 'integer')
+            if fps <= 0:
+                raise_value_error(f'fps expect an integer greater than zero. Instead, {fps} was given.')
+            self._fps = fps
+            self._frame_dt = 1.0 / fps
 
-        if not isinstance(show_controls, bool):
-            raise_type_error(show_controls, 'show_controls', 'bool')
-        self._show_controls = show_controls
-        self._run = not show_controls
+        if window_width is not None:
+            if not isinstance(window_width, int):
+                raise_type_error(window_width, 'window_width', 'integer')
+            if window_width <= 0:
+                raise_value_error(f'window_width expect an integer greater than zero. Instead, {window_width} was given.')
+            self._window_width = window_width 
 
-        if not isinstance(screen_bg_color, tuple):
-            raise_type_error(screen_bg_color, 'screen_bg_color', 'tuple')
-        if len(screen_bg_color) != 3:
-            raise_value_error(f'screen_bg_color must be a tuple of three integers. Instead, a tuple of size {len(screen_bg_color)}')
-        for n, c in enumerate(screen_bg_color):
-            if c < 0 or c > 255:
-                raise_value_error(f'The value at index {n} of screen_bg_color is {c}. It must be between 0 and 255.')
-        self._screen_bg_color = screen_bg_color
+        if window_heigth is not None:
+            if not isinstance(window_heigth, int):
+                raise_type_error(window_heigth, 'window_heigth', 'integer')
+            if window_heigth <= 0:
+                raise_value_error(f'window_heigth expect an integer greater than zero. Instead, {window_heigth} was given.')
+            self._window_heigth = window_heigth
+
+        if show_status_bar is not None:
+            if not isinstance(show_status_bar, bool):
+                raise_type_error(show_status_bar, 'show_status_bar', 'bool')
+            self._show_status_bar = show_status_bar
+
+        if show_controls is not None:
+            if not isinstance(show_controls, bool):
+                raise_type_error(show_controls, 'show_controls', 'bool')
+            self._show_controls = show_controls
+            self._run = not show_controls
+
+        if screen_bg_color is not None:
+            if not isinstance(screen_bg_color, tuple):
+                raise_type_error(screen_bg_color, 'screen_bg_color', 'tuple')
+            if len(screen_bg_color) != 3:
+                raise_value_error(f'screen_bg_color must be a tuple of three integers. Instead, a tuple of size {len(screen_bg_color)}')
+            for n, c in enumerate(screen_bg_color):
+                if c < 0 or c > 255:
+                    raise_value_error(f'The value at index {n} of screen_bg_color is {c}. It must be between 0 and 255.')
+            self._screen_bg_color = screen_bg_color
 
     @property
     def screen_width(self):
@@ -281,8 +294,8 @@ class Interface:
 
             if self._show_controls:
                 self._draw_controls()
-            if self._hamburger_menu:
-                self._draw_hamburger_menu()
+                if self._hamburger_menu:
+                    self._draw_hamburger_menu()
             if self._show_status_bar:
                 self._draw_status_bar()
 
@@ -323,6 +336,9 @@ class Interface:
                 menu_item._handle_events()
 
         return True
+
+    def variables(self):
+        return Variable()
 
     def _init_controls_menu(self):
         topright = (self._window_width-ct.INTERFACE_CONTROLS_MARGIN, ct.INTERFACE_CONTROLS_MARGIN)
@@ -461,10 +477,13 @@ class Interface:
         self._stats_bar_rect.bottom = self._window_heigth
         pygame.draw.rect(self._surface, ct.INTERFACE_STATUSBAR_COLOR, self._stats_bar_rect)
         
-        if len(self._ipss) == ct.INTERFACE_IPS_AVERAGE:
+        if len(self._ipss) == ct.INTERFACE_IPS_AVERAGE and \
+            len(self._fpss) == ct.INTERFACE_FPS_AVERAGE:
             # Display the stats
             label = f'IPS: {int(self._average_ips)} / FPS: {int(self._average_fps)}' # ({percent_ips} %)'
-            draw._label(self, label, 'midleft', self._stats_bar_rect.midleft)
+        else:
+            label = 'Averaging IPS and FPS ...'
+        draw._label(self, label, 'midleft', self._stats_bar_rect.midleft)
 
         decimal_places = 2
         time = str(round(self._run_time_s,decimal_places))
@@ -501,8 +520,5 @@ class Interface:
             self._average_fps += (added - removed) / ct.INTERFACE_FPS_AVERAGE
         elif len(self._fpss) == ct.INTERFACE_FPS_AVERAGE:
             self._average_fps = sum(self._fpss)/ct.INTERFACE_FPS_AVERAGE
-    
-    def variables(self):
-        return Variable()
 
 __all__ = ["Toolbox"]

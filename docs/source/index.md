@@ -17,8 +17,9 @@
 
 ```{toctree}
 :caption: 'Contents:'
-:maxdepth: 2
+:maxdepth: 3
 
 overview
 usage
+reference/interface
 ```

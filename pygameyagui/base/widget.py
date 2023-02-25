@@ -98,5 +98,5 @@ class Widget:
         if self._widget_rect.collidepoint(self._interface._mouse_pos):
             self._mouse_over = True
 
-    def set_as_emitter(self):
-        self._emitter = True
+#    def set_as_emitter(self):
+#        self._emitter = True

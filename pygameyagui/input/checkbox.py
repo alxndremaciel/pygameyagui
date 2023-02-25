@@ -26,15 +26,23 @@ class CheckBox(Widget):
 
     def activate(self):
         if self._enabled:
-            self._checked = True
+            self._checked = self._trigger_emitter(True)
 
     def deactivate(self):
         if self._enabled:
-            self._checked = False
+            self._checked = self._trigger_emitter(False)
 
     def toggle(self):
         if self._enabled:
-            self._checked = not(self._checked)
+            if self._checked:
+                self.deactivate()
+            else:
+                self.activate()
+
+    def _trigger_emitter(self, _checked):
+        if self._emitter and not self._checked == _checked:
+            self._interface._emitting = self
+        return _checked
 
     def _show(self):
         unchecked_color = ct.CHECKBOX_UNCHECKED_BG_COLOR
