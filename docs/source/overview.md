@@ -36,10 +36,10 @@ Your program will be divided in two parts: Your **Simulation** and the **{ref}`I
 
 The **Simulation** might have many variables that are either parameters (fixed or not) and calculated values. Here we represent only two of those variables by _Variable P_ and _Variable Q_.
 
-The **{ref}`Interface <Creating an Interface>`** can provide {ref}`Toolboxes <Creating an Toolbox>` which behave like small floating windows that can be populated with {ref}`Widgets <Creating an Widget>`.
+The **{ref}`Interface <Creating an Interface>`** can provide {ref}`Toolboxes <Creating a Toolbox>` which behave like small floating windows that can be populated with {ref}`Widgets <Creating a Widget>`.
 
-Each {ref}`Widget <Creating an Widget>` can be either of type _input_ or _output_ such that the _input_ ones can have their values changed by the user during runtime both by graphical interaction or programatically. In other hand, _output_ {ref}`Widgets <Creating an Widget>` can only have their value altered programatically.
+Each {ref}`Widget <Creating a Widget>` can be either of type _input_ or _output_ such that the _input_ ones can have their values changed by the user during runtime both by graphical interaction or programatically. In other hand, _output_ {ref}`Widgets <Creating a Widget>` can only have their value altered programatically.
 
-The value of any _input_ {ref}`Widget <Creating an Widget>` can be used to set any variable of the **Simulation** or any value of a _output_ {ref}`Widget <Creating an Widget>`. Also, any variable of the **Simulation** can set the value of any {ref}`Widget <Creating an Widget>` (_input_ or _output_)
+The value of any _input_ {ref}`Widget <Creating a Widget>` can be used to set any variable of the **Simulation** or any value of a _output_ {ref}`Widget <Creating a Widget>`. Also, any variable of the **Simulation** can set the value of any {ref}`Widget <Creating a Widget>` (_input_ or _output_)
 
 The {ref}`Interface <Creating an Interface>` will also be responsible for initialize several aspects of _Pygame_, keep track and control the flow of the **Simulation** time. 

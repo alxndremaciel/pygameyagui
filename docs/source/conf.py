@@ -25,6 +25,7 @@ extensions = [
     'myst_parser',
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.autodoc',
+    'sphinx_copybutton',
 ]
 
 autodoc_mock_imports = ['pygame']

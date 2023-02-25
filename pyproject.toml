@@ -13,4 +13,5 @@ dynamic = ["version", "description"]
 doc = [
     "sphinx",
     "myst-parser",
+    "sphinx-copybutton",
     ]

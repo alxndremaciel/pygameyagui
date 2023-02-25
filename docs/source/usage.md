@@ -10,31 +10,41 @@ Currently, you can download the zip package on github:
 
 Rename the folder `pygameyagui-main` to `pygameyagui` and put this folder in the same directory of your project. In your project you need to add the following:
 
-```python
-import sys
-import pygame
-import pygameyagui as yagui
+```{eval-rst}
+.. code-block:: python
+    :linenos:
 
-pygame.init()
+    import sys
+    import pygame
+    import pygameyagui as yagui
+
+    pygame.init()
 ```
 
 You are all set to use the Pygame-YaGUI environment. You will need to create an interface ({py:class}`pygameyagui.Interface`) that is necessary for hosting (any amount of) toolboxes ({py:class}`pygameyagui.base.toolbox.Toolbox`). Each toolbox can have (any amount of) your widgets. Have fun!
 
 ## Creating an Interface
 
-Create a {py:class}`pygameyagui.Interface` object with:
-```python
-interface = yagui.Interface()
+Create an {py:class}`pygameyagui.Interface` object with:
+```{eval-rst}
+.. code-block:: python
+    :linenos:
+
+    interface = yagui.Interface()
 ```
 
 ```{eval-rst} 
 .. autoclass:: pygameyagui.Interface
 ```
 
-## Creating an Toolbox
+## Creating a Toolbox
 
 Create a {py:class}`pygameyagui.base.toolbox.Toolbox` object with:
 
 ```{eval-rst}
 .. autoclass:: pygameyagui.base.toolbox.Toolbox
 ``` 
+
+## Creating a Widget
+
+A Widget object can be of two types: _output_ and _input_
