@@ -75,7 +75,7 @@ class Interface:
 
         self._toolboxes = []
         self._icons = []
-        self._frame_count = 0
+        self._iteration_count = 0
         self._hamburger_menu = False
         self._initial_perf_counter = None
         self._current_global_time = time.perf_counter()
@@ -99,7 +99,6 @@ class Interface:
 
         Please, do refer to the parameters description of the :class:`pygameyagui.Interface`.
 
-        :return: None
         :rtype: NoneType
         '''
 
@@ -151,87 +150,175 @@ class Interface:
 
     @property
     def window_width(self):
+        '''This returns the window width in px.
+                
+        :rtype: int
+        '''
         return self._window_width
 
     @property
     def screen_height(self):
+        '''This returns the window height in px. 
+                
+        :rtype: int
+        '''
         return self._window_height
 
     @property
     def screen_center(self):
+        '''This return a pair of x, y for the center of the window in px.
+                
+        :rtype: tuple
+        '''
         return int(0.5*self._window_width), int(0.5*self._window_height)
 
     @property
     def screen_toplef(self):
+        '''This return a pair of x, y for the top left corner of the window in px.
+                
+        :rtype: tuple
+        '''
         return 0, 0
 
     @property
     def screen_topright(self):
+        '''This return a pair of x, y for the top right corner of the window in px.
+                
+        :rtype: tuple
+        '''
         return self._window_width, 0
 
     @property
     def screen_bottomleft(self):
+        '''This return a pair of x, y for the bottom left corner of the window in px.
+                
+        :rtype: tuple
+        '''
         return 0, self._window_height
 
     @property
     def screen_bottomright(self):
+        '''This return a pair of x, y for the bottom right corner of the window in px.
+                
+        :rtype: tuple
+        '''
         return self._window_width, self._window_height
 
     @property
     def screen_midtop(self):
+        '''This return a pair of x, y for the mid top position of the window in px.
+                
+        :rtype: tuple
+        '''
         return int(0.5*self._window_width), 0
 
     @property
     def screen_midbottom(self):
+        '''This return a pair of x, y for the mid bottom position of the window in px.
+                
+        :rtype: tuple
+        '''
         return int(0.5*self._window_width), self._window_height
 
     @property
     def screen_midleft(self):
+        '''This return a pair of x, y for the mid left position of the window in px.
+                
+        :rtype: tuple
+        '''
         return 0, int(0.5*self._window_height)
 
     @property
     def screen_midright(self):
+        '''This return a pair of x, y for the mid right position of the window in px.
+                
+        :rtype: tuple
+        '''
         return self._window_width, int(0.5*self._window_height)
 
     @property
     def screen_rect(self):
+        '''This returns a Pygame Rect for the window.
+                
+        :rtype: Pygame.Rect
+        '''
         return pygame.Rect(0,0,self._window_width,self._window_height)
 
     @property
     def mouse(self):
+        '''This return a pair of x, y for the mouse position inside the window in px.
+                
+        :rtype: tuple
+        '''
         return self._mouse_pos
 
     @property
     def mouse_x(self):
+        '''This return the x of the mouse position inside the window in px.
+                
+        :rtype: int
+        '''
         return self._mouse_pos[0]
 
     @property
     def mouse_y(self):
+        '''This return the y of the mouse position inside the window in px.
+                
+        :rtype: int
+        '''
         return self._mouse_pos[1]
 
     @property
     def surface(self):
+        '''This returns a Pygame Surface of the window.
+                
+        :rtype: Pygame.Surface
+        '''
         return self._surface
 
     @property
     def screen_bg_color(self):
+        '''This returns the current window background color in the format (R,G,B).
+                
+        :rtype: tuple
+        '''
         return self._screen_bg_color
 
     @property
     def time(self):
+        '''This returns the current time in seconds since last reset.
+                
+        :rtype: float
+        '''
         return self._run_time_s
 
     @property
     def dt(self):
+        '''This is the elapsed time between the current frame and previous frame in seconds
+                
+        :rtype: float
+        '''
         return self._dt
 
     @property
     def fps(self):
+        '''This returns the FPS value set at the interface instatiation or configured using :meth:`pygameyagui.Intergace.config`.
+
+        Note: this is not the actual FPS which is varies and its average is shown at the status bar.
+                
+        :rtype: int
+        '''
         return self._fps
 
     @property
-    def frame_count(self):
-        return self._frame_count
+    def iteration_count(self):
+        '''This is the number of iteration since the simulation was started.
+        
+        Note: this will not be resetted with time.
+                
+        :rtype: int
+        '''
+        return self._iteration_count
 
     def contains_point(self, point):
         '''This checks if a point is inside the window.
@@ -239,7 +326,6 @@ class Interface:
         :param point: A pair of two integers/floats that represents a point.
         :type point: tuple
 
-        :return: True or False
         :rtype: bool
         '''
         if not isinstance(point, tuple):
@@ -262,8 +348,7 @@ class Interface:
 
         See also: :meth:`pygameyagui.Interface.running`, :meth:`pygameyagui.Interface.resume` and :meth:`pygameyagui.Interface.pause_and_reset`
 
-        :return: None
-        :rtype: NoneTypee
+        :rtype: NoneType
         '''
         self._run = False
 
@@ -274,8 +359,7 @@ class Interface:
 
         See also: :meth:`pygameyagui.Interface.running`, :meth:`pygameyagui.Interface.pause` and :meth:`pygameyagui.Interface.pause_and_reset`
 
-        :return: None
-        :rtype: NoneTypee
+        :rtype: NoneType
         '''
         self._run = True
 
@@ -286,8 +370,7 @@ class Interface:
 
         See also: :meth:`pygameyagui.Interface.setting` and :meth:`pygameyagui.Interface.pause_and_reset`
 
-        :return: None
-        :rtype: NoneTypee
+        :rtype: NoneType
         '''
         self._restart._trigged = True
 
@@ -298,8 +381,7 @@ class Interface:
 
         See also: :meth:`pygameyagui.Interface.setting` and :meth:`pygameyagui.Interface.running`
 
-        :return: None
-        :rtype: NoneTypee
+        :rtype: NoneType
         '''
         self._run = False
         self._restart._trigged = True
@@ -313,7 +395,6 @@ class Interface:
 
         See also: :meth:`pygameyagui.Interface.pause`, :meth:`pygameyagui.Interface.resume` and :meth:`pygameyagui.Interface.pause_and_reset`
 
-        :return: True or False
         :rtype: bool
         '''
         return self._run
@@ -330,17 +411,15 @@ class Interface:
         
         See also: :meth:`pygameyagui.Interface.reset` and :meth:`pygameyagui.Interface.pause_and_reset`
 
-        :return: True or False
         :rtype: bool
         '''
-        return self._restart._trigged or self._frame_count == 1
+        return self._restart._trigged or self._iteration_count == 1
 
     def active(self):
         '''Use this for the condition on the simulation loop while.
         
         It will return **True** by default and keep the simulation loop running. Use :meth:`pygameyagui.Interface.deactivate` method to set it to **False**.
 
-        :return: True or False
         :rtype: bool
         '''
         return self._active
@@ -350,7 +429,6 @@ class Interface:
         
         It will make the :meth:`pygameyagui.Interface.active` method return **False**. Depending how you organize your program this might close the Pygame window
 
-        :return: None
         :rtype: NoneType
         '''
         self._active = False
@@ -360,10 +438,9 @@ class Interface:
 
         This method is required to be called once and only once in the simulation loop. It should be called on each iteration at the very top of the simulation loop.
 
-        :return: events
-        :rtype: Eventlist
+        :rtype: Pygame.Eventlist
         '''
-        self._frame_count += 1
+        self._iteration_count += 1
         self._clock.tick(self._ips)
         self._calculate_average_ips()
         self._last_global_time = self._current_global_time
@@ -404,7 +481,6 @@ class Interface:
 
         This method is required to be called once and only once in the simulation loop. It should be called on each iteration at the very bottom of the simulation loop. Also, it handles all the events that concerns the graphical interface.
 
-        :return: None
         :rtype: NoneType
         '''
         self._mouse_over = None
@@ -412,7 +488,7 @@ class Interface:
         open_toolboxes = [toolbox for toolbox in self._toolboxes if toolbox._open]       
         
         self._run_dt = self._current_global_time - self._show_global_time
-        if self._run_dt >= self._frame_dt or self._frame_count == 1:
+        if self._run_dt >= self._frame_dt or self._iteration_count == 1:
             self._calculate_average_fps()
             self._show_global_time = self._current_global_time
             for toolbox in open_toolboxes:
@@ -460,7 +536,6 @@ class Interface:
         
         As long as this is created in the global scope, you can use this to set attributes that act like global without having to deal with declaring global variables. This is a hack it should be avoided if possible.
 
-        :return: variable object
         :rtype: Variable
         '''
         return Variable()
@@ -653,4 +728,4 @@ class Interface:
     def _define_surface(self):
         self._surface = pygame.display.set_mode((self._window_width, self._window_height))
 
-__all__ = ["Toolbox", "active"]
+__all__ = ["Toolbox"]
