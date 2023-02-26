@@ -8,6 +8,7 @@ Install PygameYaGUI using pip:
 $ pip install pygameyagui
 ```
 ```{admonition} About Python version
+:class: caution
 This package was developed and tested using Python 3.8. Users with other Python versions, please be aware of unforeseen consequences.
 ```
 

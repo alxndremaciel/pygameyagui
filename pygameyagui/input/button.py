@@ -24,14 +24,14 @@ class Button(Widget):
             else:
                 raise ValueError(f'clicked expect a boolean as argument. Instead, type {type(_clicked)} was given.')
 
-    def activate(self):
+    def _activate(self):
         if self._enabled:
             self._clicked = True
 
-    def deactivate(self):
+    def _deactivate(self):
         self._clicked = False
 
-    def toggle(self):
+    def _toggle(self):
         if self._enabled:
             self._clicked = not(self._clicked)
 
@@ -51,13 +51,13 @@ class Button(Widget):
         
     def _handle_events(self):
         self._check_mouse_over()
-        self.deactivate()
+        self._deactivate()
         for event in self._interface._events:
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
                     if self._widget_rect.collidepoint(self._interface._mouse_pos):
                         if self.being_pressed:
-                            self.activate()
+                            self._activate()
                         self.being_pressed = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:

@@ -90,9 +90,6 @@ class Interface:
         self._init_hamburger_menu()
         self._active = True
 
-    def _define_surface(self):
-        self._surface = pygame.display.set_mode((self._window_width, self._window_height))
-
     def config(self, fps=None, window_width=None, window_height=None, show_status_bar=None, show_controls=None, screen_bg_color=None):
         '''Use this to change the interface settings during runtime.
 
@@ -101,6 +98,9 @@ class Interface:
         Although all parameters in this method default to None, internally they will be left unchanged if not passed. Therefore, any combination of parameters can be passed as arguments. Also, this method can be called anytime and anywhere after the interface instantiation.
 
         Please, do refer to the parameters description of the :class:`pygameyagui.Interface`.
+
+        :return: None
+        :rtype: NoneType
         '''
 
         if fps is not None:
@@ -143,7 +143,7 @@ class Interface:
             if not isinstance(screen_bg_color, tuple):
                 raise_type_error(screen_bg_color, 'screen_bg_color', 'tuple')
             if len(screen_bg_color) != 3:
-                raise_value_error(f'screen_bg_color must be a tuple of three integers. Instead, a tuple of size {len(screen_bg_color)}')
+                raise_value_error(f'screen_bg_color must be a tuple of three integers. Instead, a tuple of size {len(screen_bg_color)} was given')
             for n, c in enumerate(screen_bg_color):
                 if c < 0 or c > 255:
                     raise_value_error(f'The value at index {n} of screen_bg_color is {c}. It must be between 0 and 255.')
@@ -234,29 +234,135 @@ class Interface:
         return self._frame_count
 
     def contains_point(self, point):
-        x, y = point
-        return x >= 0 and x <= self.window_width and y >= 0 and y <= self.screen_height
+        '''This checks if a point is inside the window.
 
-    def pause_and_reset(self):
-        self._run = False
-        self._restart._trigged = True
+        :param point: A pair of two integers/floats that represents a point.
+        :type point: tuple
+
+        :return: True or False
+        :rtype: bool
+        '''
+        if not isinstance(point, tuple):
+            raise_type_error(point, 'point', 'tuple')
+        if len(point) != 2:
+            raise_value_error(f'point must be a tuple of two integers. Instead, a tuple of size {len(point)} was given.')
+        x, y = point
+        if not isinstance(x, int) and not isinstance(x, float) :
+            raise_type_error(x, 'point[0]', 'int or float')
+        if not isinstance(y, int) and not isinstance(y, float) :
+            raise_type_error(y, 'point[1]', 'int or float')
+
+        return x >= 0 and x <= self.window_width and \
+               y >= 0 and y <= self.screen_height
 
     def pause(self):
+        '''Use this to pause the simulation update process. 
+        
+        It is equivalent to freeze time.
+
+        See also: :meth:`pygameyagui.Interface.running`, :meth:`pygameyagui.Interface.resume` and :meth:`pygameyagui.Interface.pause_and_reset`
+
+        :return: None
+        :rtype: NoneTypee
+        '''
         self._run = False
 
+    def resume(self):
+        '''Use this to resume the simulation update process. 
+        
+        It is equivalent to unfreeze time.
+
+        See also: :meth:`pygameyagui.Interface.running`, :meth:`pygameyagui.Interface.pause` and :meth:`pygameyagui.Interface.pause_and_reset`
+
+        :return: None
+        :rtype: NoneTypee
+        '''
+        self._run = True
+
     def reset(self):
+        '''Use this to reset the simulation. 
+        
+        It is equivalent to zero time. It will make :meth:`pygameyagui.Interface.setting` return **True**.
+
+        See also: :meth:`pygameyagui.Interface.setting` and :meth:`pygameyagui.Interface.pause_and_reset`
+
+        :return: None
+        :rtype: NoneTypee
+        '''
+        self._restart._trigged = True
+
+    def pause_and_reset(self):
+        '''Use this to pause and reset the simulation. 
+        
+        It is equivalent to zero and stop time. It will make :meth:`pygameyagui.Interface.setting` return **True** and :meth:`pygameyagui.Interface.running` return **False**.
+
+        See also: :meth:`pygameyagui.Interface.setting` and :meth:`pygameyagui.Interface.running`
+
+        :return: None
+        :rtype: NoneTypee
+        '''
+        self._run = False
         self._restart._trigged = True
 
     def running(self):
+        '''Use this to know if the simulation will be updated. 
+        
+        It is equivalent to know if time is passing.
+        
+        It will return **False** by the default if **show_controls** at :class:`pygameyagui.Interface` is set to **True**. On the other hand, it will return **True** by the default if **show_controls** is set to **False**.
+
+        See also: :meth:`pygameyagui.Interface.pause`, :meth:`pygameyagui.Interface.resume` and :meth:`pygameyagui.Interface.pause_and_reset`
+
+        :return: True or False
+        :rtype: bool
+        '''
         return self._run
 
     def setting(self):
+        '''Use this to know if a setup is needed.
+        
+        It will return **True** during the execution of the first simulation iteration or if a restart condition is met. Otherwise, returns **False**.
+         
+        The restart condition is met if:
+
+            * The **Reload** button at the interface controls is clicked;
+            * Any widget set to be a emitter is trigged
+        
+        See also: :meth:`pygameyagui.Interface.reset` and :meth:`pygameyagui.Interface.pause_and_reset`
+
+        :return: True or False
+        :rtype: bool
+        '''
         return self._restart._trigged or self._frame_count == 1
 
     def active(self):
+        '''Use this for the condition on the simulation loop while.
+        
+        It will return **True** by default and keep the simulation loop running. Use :meth:`pygameyagui.Interface.deactivate` method to set it to **False**.
+
+        :return: True or False
+        :rtype: bool
+        '''
         return self._active
+    
+    def deactivate(self):
+        '''Use this anywhere if you want to end the simulation loop.
+        
+        It will make the :meth:`pygameyagui.Interface.active` method return **False**. Depending how you organize your program this might close the Pygame window
+
+        :return: None
+        :rtype: NoneType
+        '''
+        self._active = False
 
     def events(self):
+        '''Use this method to get the Pygame events.
+
+        This method is required to be called once and only once in the simulation loop. It should be called on each iteration at the very top of the simulation loop.
+
+        :return: events
+        :rtype: Eventlist
+        '''
         self._frame_count += 1
         self._clock.tick(self._ips)
         self._calculate_average_ips()
@@ -282,10 +388,27 @@ class Interface:
             self.reset()
         self._emitting = None
 
+        if self._pause_resume._trigged:
+            self._run = not self._run
+
+        if self._restart._trigged:
+            self._zeroing_clock()
+
+        if self._hamburger._trigged:
+            self._hamburger_menu = not self._hamburger_menu
+
         return self._events
 
     def show(self):
+        '''Use this method show the toolboxes, controls and status bar.
+
+        This method is required to be called once and only once in the simulation loop. It should be called on each iteration at the very bottom of the simulation loop. Also, it handles all the events that concerns the graphical interface.
+
+        :return: None
+        :rtype: NoneType
+        '''
         self._mouse_over = None
+
         open_toolboxes = [toolbox for toolbox in self._toolboxes if toolbox._open]       
         
         self._run_dt = self._current_global_time - self._show_global_time
@@ -326,26 +449,25 @@ class Interface:
             for icon in self._icons:
                 icon._handle_events()
 
-        if self._pause_resume._trigged:
-            self._run = not self._run
-
-        if self._restart._trigged:
-            self._initial_perf_counter = None
-            self._run_time_s = 0.0
-
-        if self._hamburger._trigged:
-            self._hamburger_menu = not self._hamburger_menu
-
         if self._hamburger_menu:
             for menu_item in self._hamburger_menu_itens:
                 if menu_item._trigged:
                     self._execute_menu_item_signal(menu_item._signal)
                 menu_item._handle_events()
 
-        return True
-
     def variables(self):
+        '''This creates a dummy object from a dummy class to use as a `global variable`.
+        
+        As long as this is created in the global scope, you can use this to set attributes that act like global without having to deal with declaring global variables. This is a hack it should be avoided if possible.
+
+        :return: variable object
+        :rtype: Variable
+        '''
         return Variable()
+
+    def _zeroing_clock(self):
+        self._initial_perf_counter = None
+        self._run_time_s = 0.0
 
     def _init_controls_menu(self):
         topright = (self._window_width-ct.INTERFACE_CONTROLS_MARGIN, ct.INTERFACE_CONTROLS_MARGIN)
@@ -480,7 +602,7 @@ class Interface:
 
     def _draw_status_bar(self):
         # Draw the bar
-        self._stats_bar_rect = pygame.Rect(0,0, self._window_width, ct.INTERFACE_STATUSBAR_height)
+        self._stats_bar_rect = pygame.Rect(0,0, self._window_width, ct.INTERFACE_STATUSBAR_HEIGHT)
         self._stats_bar_rect.bottom = self._window_height
         pygame.draw.rect(self._surface, ct.INTERFACE_STATUSBAR_COLOR, self._stats_bar_rect)
         
@@ -528,4 +650,7 @@ class Interface:
         elif len(self._fpss) == ct.INTERFACE_FPS_AVERAGE:
             self._average_fps = sum(self._fpss)/ct.INTERFACE_FPS_AVERAGE
 
-__all__ = ["Toolbox"]
+    def _define_surface(self):
+        self._surface = pygame.display.set_mode((self._window_width, self._window_height))
+
+__all__ = ["Toolbox", "active"]
