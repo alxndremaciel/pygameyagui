@@ -22,4 +22,5 @@
 overview
 usage
 reference/interface
+reference/toolbox
 ```

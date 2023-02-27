@@ -37,10 +37,10 @@ class Interface:
     :param fps: Frames Per Second rate to update the screen. It does not influence the rate of simulation (IPS - Iteration per Seconds) which is only limited by the processing power of the CPU.
     :type fps: int [>0] (optional)
     
-    :param window_width: The window width in pixels.
+    :param window_width: The window width in pixelsels.
     :type window_width: int [>0] (optional)
     
-    :param window_height: The window height in pixels.
+    :param window_height: The window height in pixelsels.
     :type window_height: int [>0] (optional)
 
     :param show_status_bar: Flag to show or hide the status bar.
@@ -150,7 +150,7 @@ class Interface:
 
     @property
     def window_width(self):
-        '''This returns the window width in px.
+        '''This returns the window width in pixels.
                 
         :rtype: int
         '''
@@ -158,7 +158,7 @@ class Interface:
 
     @property
     def screen_height(self):
-        '''This returns the window height in px. 
+        '''This returns the window height in pixels. 
                 
         :rtype: int
         '''
@@ -166,7 +166,7 @@ class Interface:
 
     @property
     def screen_center(self):
-        '''This return a pair of x, y for the center of the window in px.
+        '''This return a pair of x, y for the center of the window in pixels.
                 
         :rtype: tuple
         '''
@@ -174,7 +174,7 @@ class Interface:
 
     @property
     def screen_toplef(self):
-        '''This return a pair of x, y for the top left corner of the window in px.
+        '''This return a pair of x, y for the top left corner of the window in pixels.
                 
         :rtype: tuple
         '''
@@ -182,7 +182,7 @@ class Interface:
 
     @property
     def screen_topright(self):
-        '''This return a pair of x, y for the top right corner of the window in px.
+        '''This return a pair of x, y for the top right corner of the window in pixels.
                 
         :rtype: tuple
         '''
@@ -190,7 +190,7 @@ class Interface:
 
     @property
     def screen_bottomleft(self):
-        '''This return a pair of x, y for the bottom left corner of the window in px.
+        '''This return a pair of x, y for the bottom left corner of the window in pixels.
                 
         :rtype: tuple
         '''
@@ -198,7 +198,7 @@ class Interface:
 
     @property
     def screen_bottomright(self):
-        '''This return a pair of x, y for the bottom right corner of the window in px.
+        '''This return a pair of x, y for the bottom right corner of the window in pixels.
                 
         :rtype: tuple
         '''
@@ -206,7 +206,7 @@ class Interface:
 
     @property
     def screen_midtop(self):
-        '''This return a pair of x, y for the mid top position of the window in px.
+        '''This return a pair of x, y for the mid top position of the window in pixels.
                 
         :rtype: tuple
         '''
@@ -214,7 +214,7 @@ class Interface:
 
     @property
     def screen_midbottom(self):
-        '''This return a pair of x, y for the mid bottom position of the window in px.
+        '''This return a pair of x, y for the mid bottom position of the window in pixels.
                 
         :rtype: tuple
         '''
@@ -222,7 +222,7 @@ class Interface:
 
     @property
     def screen_midleft(self):
-        '''This return a pair of x, y for the mid left position of the window in px.
+        '''This return a pair of x, y for the mid left position of the window in pixels.
                 
         :rtype: tuple
         '''
@@ -230,7 +230,7 @@ class Interface:
 
     @property
     def screen_midright(self):
-        '''This return a pair of x, y for the mid right position of the window in px.
+        '''This return a pair of x, y for the mid right position of the window in pixels.
                 
         :rtype: tuple
         '''
@@ -246,7 +246,7 @@ class Interface:
 
     @property
     def mouse(self):
-        '''This return a pair of x, y for the mouse position inside the window in px.
+        '''This return a pair of x, y for the mouse position inside the window in pixels.
                 
         :rtype: tuple
         '''
@@ -254,7 +254,7 @@ class Interface:
 
     @property
     def mouse_x(self):
-        '''This return the x of the mouse position inside the window in px.
+        '''This return the x of the mouse position inside the window in pixels.
                 
         :rtype: int
         '''
@@ -262,7 +262,7 @@ class Interface:
 
     @property
     def mouse_y(self):
-        '''This return the y of the mouse position inside the window in px.
+        '''This return the y of the mouse position inside the window in pixels.
                 
         :rtype: int
         '''
@@ -286,7 +286,7 @@ class Interface:
 
     @property
     def time(self):
-        '''This returns the current time in seconds since last reset.
+        '''This returns the current time in seconds since the simulation was started or last resetted.
                 
         :rtype: float
         '''
@@ -302,7 +302,7 @@ class Interface:
 
     @property
     def fps(self):
-        '''This returns the FPS value set at the interface instatiation or configured using :meth:`pygameyagui.Intergace.config`.
+        '''This returns the FPS value set at :class:`pygameyagui.Interface` or configured using :meth:`pygameyagui.Interface.config`.
 
         Note: this is not the actual FPS which is varies and its average is shown at the status bar.
                 

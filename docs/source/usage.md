@@ -50,9 +50,10 @@ Create a {py:class}`pygameyagui.Toolbox` object with:
 toolbox = pygameyagui.Toolbox(interface, 'This is a Toolbox')
 ```
  
-```{eval-rst}
-.. autoclass:: pygameyagui.Toolbox
-``` 
+```{admonition} Documentation
+:class: note 
+Refer to {ref}`Toolbox Documentation` for arguments, methods, properties and attributes.
+```
 ## Creating a Widget
 
 A Widget object can be of two types: _output_ and _input_

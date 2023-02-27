@@ -54,21 +54,49 @@ class Toolbox:
             raise TypeError(f'enabled argument must be of type boolean. Instead, type {type(_enabled)} was given.')
 
     def minimize(self):
+        '''Use this to programatically minimize a toolbox.
+
+        The toolbox will collapse such that only its title bar is visible. It is called internally when the user clicks in the minimize icon of an expanded toolbox at the left end of the title bar.
+
+        :rtype: NoneType
+        '''
         self._minimized = True
 
     def restore(self):
+        '''Use this to programatically restore/expand a toolbox.
+
+        The toolbox will restore such that its body is visible. It is called internally when the user clicks in the minimize icon of a minimized/collapsed toolbox at the right end of the title bar. 
+
+        :rtype: NoneType
+        '''
         self._minimized = False
 
     def enable(self):
+        '''Use this to 
+
+        :rtype: NoneType
+        '''
         self._enabled = True
 
     def disable(self):
+        '''Use this to 
+
+        :rtype: NoneType
+        '''
         self._enabled = False
 
     def open(self):
+        '''Use this to 
+
+        :rtype: NoneType
+        '''
         self._open = True
 
     def close(self):
+        '''Use this to 
+
+        :rtype: NoneType
+        '''
         self._open = False
 
     def _show(self):
