@@ -3,10 +3,9 @@
 import importlib.metadata
 __version__ = importlib.metadata.version(__package__ or __name__)
 
-from os import environ
-environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+import os, sys
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
-import sys
 import time
 import pygame
 from .include import constants as ct
@@ -34,6 +33,9 @@ class Interface:
     
     It will configure the FPS rate, window dimensions, status bar, controls and background color. It should be called after pygame.init() and uses pygame.display.set_mode() and pygame.time.Clock() to configure pygame environment.
     
+    :param title: The window title.
+    :type title: str (optional)
+        
     :param fps: Frames Per Second rate to update the screen. It does not influence the rate of simulation (IPS - Iteration per Seconds) which is only limited by the processing power of the CPU.
     :type fps: int [>0] (optional)
     
@@ -53,13 +55,15 @@ class Interface:
     :type screen_bg_color: tuple (0<R,G,B<255) (optional)
     """
     def __init__(self,
+                 title = ct.INTERFACE_CONFIG_TITLE,
                  fps = ct.INTERFACE_CONFIG_FPS,
                  window_width = ct.INTERFACE_CONFIG_WINDOW_WIDTH,
                  window_height = ct.INTERFACE_CONFIG_WINDOW_HEIGHT,
                  show_status_bar = ct.INTERFACE_CONFIG_SHOW_STATUS_BAR,
                  show_controls = ct.INTERFACE_CONFIG_SHOW_CONTROLS,
                  screen_bg_color = ct.INTERFACE_CONFIG_SCREEN_BG_COLOR):
-        self.config(fps = fps,
+        self.config(title = title,
+                    fps = fps,
                     window_width = window_width,
                     window_height = window_height,
                     show_status_bar = show_status_bar,
@@ -90,7 +94,7 @@ class Interface:
         self._init_hamburger_menu()
         self._active = True
 
-    def config(self, fps=None, window_width=None, window_height=None, show_status_bar=None, show_controls=None, screen_bg_color=None):
+    def config(self, title=None,  fps=None, window_width=None, window_height=None, show_status_bar=None, show_controls=None, screen_bg_color=None):
         '''Use this to change the interface settings during runtime.
 
         All the parameters of this methods can be set during the interface instantiation. However, one may need (programatically) to change this parameters during the execution of a simulation.
@@ -101,7 +105,6 @@ class Interface:
 
         :rtype: NoneType
         '''
-
         if fps is not None:
             if not isinstance(fps, int):
                 raise_type_error(fps, 'fps', 'integer')
@@ -125,7 +128,11 @@ class Interface:
             self._window_height = window_height
 
         if window_width is not None or window_height is not None:
-            self._define_surface()
+            icon_path = os.path.join(os.path.dirname(__file__), r'pygameyagui.png')
+            print(icon_path)
+            icon_surface = pygame.image.load(icon_path)
+            pygame.display.set_icon(icon_surface)
+            self._surface = pygame.display.set_mode((self._window_width, self._window_height))
 
         if show_status_bar is not None:
             if not isinstance(show_status_bar, bool):
@@ -147,6 +154,13 @@ class Interface:
                 if c < 0 or c > 255:
                     raise_value_error(f'The value at index {n} of screen_bg_color is {c}. It must be between 0 and 255.')
             self._screen_bg_color = screen_bg_color
+
+        if title is not None:
+            if not isinstance(title, str):
+                raise_type_error(title, 'title', 'str')
+            if title:
+                title = f'- {title}'
+            pygame.display.set_caption(f'Pygame-YaGUI {title}')
 
     @property
     def window_width(self):
@@ -725,8 +739,5 @@ class Interface:
             self._average_fps += (added - removed) / ct.INTERFACE_FPS_AVERAGE
         elif len(self._fpss) == ct.INTERFACE_FPS_AVERAGE:
             self._average_fps = sum(self._fpss)/ct.INTERFACE_FPS_AVERAGE
-
-    def _define_surface(self):
-        self._surface = pygame.display.set_mode((self._window_width, self._window_height))
 
 __all__ = ["Toolbox"]

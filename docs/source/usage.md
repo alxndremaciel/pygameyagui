@@ -12,11 +12,11 @@ $ pip install pygameyagui
 This package was developed and tested using Python 3.8. Users with other Python versions, please be aware of unforeseen consequences.
 ```
 
-Also, you can download the zip package of [Pygame-YaGUI.](https://github.com/alxndremaciel/pygameyagui/archive/refs/heads/main.zip)
+Also, you can download the zip package of [Pygame-YaGUI.](https://github.com/alxndremaciel/pygameyagui/archive/refs/heads/main.zip). Unzip and rename the folder `pygameyagui-main` to `pygameyagui` and put this folder in the same directory of your project. 
 
 ## Importing
 
-Rename the folder `pygameyagui-main` to `pygameyagui` and put this folder in the same directory of your project. In your project you need to add the following:
+In your project you need to add the following:
 
 ```{eval-rst}
 .. code-block:: python
