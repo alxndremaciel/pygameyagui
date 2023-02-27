@@ -44,15 +44,24 @@ class Toolbox:
 
     @property
     def enabled(self):
+        '''This property returns whether or not a toolbox is enabled.
+        
+        See also: :meth:`pygameyagui.Toolbox.enable` and :meth:`pygameyagui.Toolbox.disable`.
+     
+        :rtype: bool
+        '''
         return self._enabled
 
-    @enabled.setter
-    def enabled(self, _enabled):
-        if isinstance(_enabled, bool):
-            self._enabled = _enabled
-        else:
-            raise TypeError(f'enabled argument must be of type boolean. Instead, type {type(_enabled)} was given.')
-
+    @property
+    def opened(self):
+        '''This property returns whether or not a toolbox is opened.
+        
+        See also: :meth:`pygameyagui.Toolbox.open` and :meth:`pygameyagui.Toolbox.close`.
+     
+        :rtype: bool
+        '''
+        return self._opened
+    
     def minimize(self):
         '''Use this to programatically minimize a toolbox.
 
@@ -72,29 +81,53 @@ class Toolbox:
         self._minimized = False
 
     def enable(self):
-        '''Use this to 
+        '''Use this to enable the toolbox.
+        
+        All toolboxes are enabled by default at instantiation.
+
+        The effect is that any enabled widget in the toolbox will be enabled. It does not affect the behaviour of disabled widgets.
+
+        This can only be achieved programatically.
+
+        See also: :meth:`pygameyagui.Toolbox.disable`
 
         :rtype: NoneType
         '''
         self._enabled = True
 
     def disable(self):
-        '''Use this to 
+        '''Use this to disable the toolbox.
+
+        The effect is that all widgets in the toolbox will be disabled independently of the widget being enabled or disabled.
+
+        This can only be achieved programatically.
+
+        See also: :meth:`pygameyagui.Toolbox.enable`
 
         :rtype: NoneType
         '''
         self._enabled = False
 
     def open(self):
-        '''Use this to 
+        '''Use this to open a closed toolbox.
 
+        It is equivalent to use the toolbox menu at the controls.
+
+        See also: :meth:`pygameyagui.Toolbox.close`
+        
         :rtype: NoneType
         '''
         self._open = True
 
     def close(self):
-        '''Use this to 
+        '''Use this to close a opened toolbox.
 
+        It is equivalent to use the close icon at the right end of the toolbox title bar or to use the toolbox menu at the controls.
+
+        Closing a toolbox benefits performance and it does not alter the values of its widgets. You can still get or set the value of any widget when it is closed.
+
+        See also: :meth:`pygameyagui.Toolbox.open`
+        
         :rtype: NoneType
         '''
         self._open = False

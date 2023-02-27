@@ -28,3 +28,6 @@
 ```{eval-rst} 
 .. autoproperty:: pygameyagui.Toolbox.enabled
 ```
+```{eval-rst} 
+.. autoproperty:: pygameyagui.Toolbox.opened
+```
