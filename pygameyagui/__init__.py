@@ -513,11 +513,12 @@ class Interface:
             toolbox._handle_events()
             if self._mouse_over is None:
                 toolbox._check_mouse_over()
-            for widget in toolbox._widgets:
-                if widget._enabled and self._mouse_over == toolbox:
-                    if widget._can_be_emitter:
-                        widget._handle_emitter_button_events()
-                    widget._handle_events()
+            if toolbox._enabled:
+                for widget in toolbox._widgets:
+                    if widget._enabled and self._mouse_over == toolbox:
+                        if widget._can_be_emitter:
+                            widget._handle_emitter_button_events()
+                        widget._handle_events()
             if self._toolbox_interaction:
                 break
 
