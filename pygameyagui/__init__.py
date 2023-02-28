@@ -9,6 +9,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import time
 import pygame
 from .include import constants as ct
+from .include import constants
 from .include import draw
 from .include.error import raise_type_error, raise_value_error
 from .base.widget import Widget
@@ -164,174 +165,110 @@ class Interface:
 
     @property
     def window_width(self):
-        '''This returns the window width in pixels.
-                
-        :rtype: int
-        '''
+        '''Get the window width in pixels (int).'''
         return self._window_width
 
     @property
     def screen_height(self):
-        '''This returns the window height in pixels. 
-                
-        :rtype: int
-        '''
+        '''Get the window height in pixels (int).'''
         return self._window_height
 
     @property
     def screen_center(self):
-        '''This return a pair of x, y for the center of the window in pixels.
-                
-        :rtype: tuple
-        '''
+        '''Get the pair of x and y coordinate for the center of the window in pixels (tuple).'''
         return int(0.5*self._window_width), int(0.5*self._window_height)
 
     @property
     def screen_toplef(self):
-        '''This return a pair of x, y for the top left corner of the window in pixels.
-                
-        :rtype: tuple
-        '''
-        return 0, 0
+        '''Get the pair of x and y coordinate for the top left corner of the window in pixels (tuple).'''
 
-    @property
+    @property        
     def screen_topright(self):
-        '''This return a pair of x, y for the top right corner of the window in pixels.
-                
-        :rtype: tuple
-        '''
+        '''Get the pair of x and y coordinate for the top right corner of the window in pixels (tuple).'''
         return self._window_width, 0
 
     @property
     def screen_bottomleft(self):
-        '''This return a pair of x, y for the bottom left corner of the window in pixels.
-                
-        :rtype: tuple
-        '''
+        '''Get the pair of x and y coordinate for the bottom left corner of the window in pixels (tuple).'''
         return 0, self._window_height
 
     @property
     def screen_bottomright(self):
-        '''This return a pair of x, y for the bottom right corner of the window in pixels.
-                
-        :rtype: tuple
-        '''
+        '''Get the pair of x and y coordinate for the bottom right corner of the window in pixels (tuple).'''
         return self._window_width, self._window_height
 
     @property
     def screen_midtop(self):
-        '''This return a pair of x, y for the mid top position of the window in pixels.
-                
-        :rtype: tuple
-        '''
+        '''Get the pair of x and y coordinate for the mid top position of the window in pixels (tuple).'''
         return int(0.5*self._window_width), 0
 
     @property
     def screen_midbottom(self):
-        '''This return a pair of x, y for the mid bottom position of the window in pixels.
-                
-        :rtype: tuple
-        '''
+        '''Get the pair of x and y coordinate for the mid bottom position of the window in pixels (tuple).'''
         return int(0.5*self._window_width), self._window_height
 
     @property
     def screen_midleft(self):
-        '''This return a pair of x, y for the mid left position of the window in pixels.
-                
-        :rtype: tuple
-        '''
+        '''Get the pair of x and y coordinate for the mid left position of the window in pixels (tuple).'''
         return 0, int(0.5*self._window_height)
 
     @property
     def screen_midright(self):
-        '''This return a pair of x, y for the mid right position of the window in pixels.
-                
-        :rtype: tuple
-        '''
+        '''Get the pair of x and y coordinate for the mid right position of the window in pixels (tuple).'''
         return self._window_width, int(0.5*self._window_height)
 
     @property
     def screen_rect(self):
-        '''This returns a Pygame Rect for the window.
-                
-        :rtype: Pygame.Rect
-        '''
+        '''Get the Pygame Rect for the window (Pygame.Rect).'''
         return pygame.Rect(0,0,self._window_width,self._window_height)
 
     @property
     def mouse(self):
-        '''This return a pair of x, y for the mouse position inside the window in pixels.
-                
-        :rtype: tuple
-        '''
+        '''Get the pair of x and y coordinates for the mouse position inside the window in pixels (tuple)'''
         return self._mouse_pos
 
     @property
     def mouse_x(self):
-        '''This return the x of the mouse position inside the window in pixels.
-                
-        :rtype: int
-        '''
+        '''Get the x coordinate of the mouse position inside the window in pixels (int).'''
         return self._mouse_pos[0]
 
     @property
     def mouse_y(self):
-        '''This return the y of the mouse position inside the window in pixels.
-                
-        :rtype: int
-        '''
+        '''Get the y coordinate of the mouse position inside the window in pixels (int).'''
         return self._mouse_pos[1]
 
     @property
     def surface(self):
-        '''This returns a Pygame Surface of the window.
-                
-        :rtype: Pygame.Surface
-        '''
+        '''Get the Pygame Surface of the window (Pygame.Surface).'''
         return self._surface
 
     @property
     def screen_bg_color(self):
-        '''This returns the current window background color in the format (R,G,B).
-                
-        :rtype: tuple
-        '''
+        '''Get the current window background color in the format RGB (tuple)'''
         return self._screen_bg_color
 
     @property
     def time(self):
-        '''This returns the current time in seconds since the simulation was started or last resetted.
-                
-        :rtype: float
-        '''
+        '''Get the current time in seconds since the simulation was started or last resetted (float)'''
         return self._run_time_s
 
     @property
     def dt(self):
-        '''This is the elapsed time between the current frame and previous frame in seconds
-                
-        :rtype: float
-        '''
+        '''Get the elapsed time between the current frame and previous frame in seconds (float)'''
         return self._dt
 
     @property
     def fps(self):
-        '''This returns the FPS value set at :class:`pygameyagui.Interface` or configured using :meth:`pygameyagui.Interface.config`.
+        '''Get the target FPS value (int). 
 
-        Note: this is not the actual FPS which is varies and its average is shown at the status bar.
-                
-        :rtype: int
-        '''
+        Note: This is the value set at :class:`pygameyagui.Interface` or configured using :meth:`pygameyagui.Interface.config`. It is not the actual FPS which is varies and its average is shown at the status bar.'''
         return self._fps
 
     @property
     def iteration_count(self):
-        '''This is the number of iteration since the simulation was started.
+        '''Get the number of iteration since the simulation was started (int).
         
-        Note: this will not be resetted with time.
-                
-        :rtype: int
-        '''
+        Note: This will not be resetted with time.'''
         return self._iteration_count
 
     def contains_point(self, point):
@@ -740,4 +677,8 @@ class Interface:
         elif len(self._fpss) == ct.INTERFACE_FPS_AVERAGE:
             self._average_fps = sum(self._fpss)/ct.INTERFACE_FPS_AVERAGE
 
-__all__ = ["Toolbox"]
+__all__ = [
+    "constants",
+    "Toolbox",
+    "Label",
+    "NumericOutput"]

@@ -5,7 +5,7 @@ from ..include import draw
 from ..include.error import raise_type_error
 
 class Toolbox:
-    """This class creates a toolbox objetc.
+    """This class creates a toolbox object.
 
     :param interface: The interface created.
     :type interface: :class:`pygameyagui.Interface`
@@ -44,22 +44,16 @@ class Toolbox:
 
     @property
     def enabled(self):
-        '''This property returns whether or not a toolbox is enabled.
+        '''Get whether or not a toolbox is enabled (bool).
         
-        See also: :meth:`pygameyagui.Toolbox.enable` and :meth:`pygameyagui.Toolbox.disable`.
-     
-        :rtype: bool
-        '''
+        See also: :meth:`pygameyagui.Toolbox.enable` and :meth:`pygameyagui.Toolbox.disable`.'''
         return self._enabled
 
     @property
     def opened(self):
-        '''This property returns whether or not a toolbox is opened.
+        '''Get whether or not a toolbox is opened (bool).
         
-        See also: :meth:`pygameyagui.Toolbox.open` and :meth:`pygameyagui.Toolbox.close`.
-     
-        :rtype: bool
-        '''
+        See also: :meth:`pygameyagui.Toolbox.open` and :meth:`pygameyagui.Toolbox.close`.'''
         return self._opened
     
     def minimize(self):

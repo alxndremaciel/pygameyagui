@@ -4,6 +4,14 @@ from ..include import draw
 from ..base.widget import Widget
 
 class Label(Widget):
+    """This class creates a label widget.
+
+    :param toolbox: The toolbox that will host the widget.
+    :type toolbox: :class:`pygameyagui.Toolbox`
+    
+    :param label: The text to be shown in the label widget.
+    :type label: str
+    """
     def __init__(self, toolbox, label):
         super().__init__(toolbox = toolbox, label = label)
         self._alignment = 'center'
@@ -13,11 +21,13 @@ class Label(Widget):
 
     @property
     def alignment(self):
+        '''Get or set the label text alignment (str).
+
+        Note: Accepted values are **left**, **center** or **right**. Default value is **center**.'''
         return self._alignment
 
     @alignment.setter
     def alignment(self, _alignment):
-        '''This sets the self._alignment which can only be left, center or right'''
         if _alignment in ['left', 'center', 'right']:
             self._alignment = _alignment
         else:

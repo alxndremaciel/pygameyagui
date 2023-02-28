@@ -23,4 +23,6 @@ overview
 usage
 reference/interface
 reference/toolbox
+reference/output_widgets/label
+reference/output_widgets/numeric_output
 ```

@@ -15,6 +15,53 @@ class Widget:
         self._can_be_emitter = False
         self._emitter = True
 
+    @property
+    def size(self):
+        '''Get or set the vertical size factor of the widget (int or float).
+        
+        This is a base class property that is useful in some widgets and it is limited by the constants below. The height in pixels of the widget is calculated by multiplicating size to the STANDARD_SLOT_HEIGHT.
+
+        The size will be internally limited restricted between MIN_SIZE_FACTOR and MAX_SIZE_FACTOR. If MIN_SIZE_FACTOR and MAX_SIZE_FACTOR values are the same, it means that there is no way to change the DEFAULT_SIZE_FACTOR value.
+        '''
+        return self._size
+
+    @size.setter
+    def size(self, _size):
+        if isinstance(_size, int) or isinstance(_size, float):
+            _size = max(self._min_size, _size)
+            if self._max_size is not None:
+                _size = min(self._max_size, _size)
+            self._size = _size
+            self._height_in_px = self._size * ct.WIDGET_STANDARD_SLOT_HEIGHT
+        else:
+            raise_type_error(_size, 'size', 'integer or float')
+
+    @property
+    def enabled(self):
+        '''Get or set the enabled state (bool).'''
+        return self._enabled
+
+    @enabled.setter
+    def enabled(self, _enabled):
+        if isinstance(_enabled, bool):
+            self._enabled = _enabled
+        else:
+            raise TypeError(f'enabled argument must be of type boolean. Instead, type {type(_enabled)} was given.')
+
+    def enable(self):
+        '''Use this to enable the widget.
+
+        :rtype: NoneType
+        '''
+        self._enabled = True
+
+    def disable(self):
+        '''Use this to disable the widget.
+
+        :rtype: NoneType
+        '''
+        self._enabled = False
+
     def _set_toolbox(self, _toolbox):
         if isinstance(_toolbox, pygameyagui.Toolbox):
             self._toolbox = _toolbox
@@ -35,39 +82,6 @@ class Widget:
             '''If label is not string it will raise an exception'''
             raise TypeError('Label is not string')
 
-    @property
-    def enabled(self):
-        return self._enabled
-
-    @enabled.setter
-    def enabled(self, _enabled):
-        if isinstance(_enabled, bool):
-            self._enabled = _enabled
-        else:
-            raise TypeError(f'enabled argument must be of type boolean. Instead, type {type(_enabled)} was given.')
-
-    def enable(self):
-        self._enabled = True
-
-    def disable(self):
-        self._enabled = False
-
-    @property
-    def size(self):
-        '''This attribute is a size factor.'''
-        return self._size
-
-    @size.setter
-    def size(self, _size):
-        if isinstance(_size, int) or isinstance(_size, float):
-            _size = max(self._min_size, _size)
-            if self._max_size is not None:
-                _size = min(self._max_size, _size)
-            self._size = _size
-            self._height_in_px = self._size * ct.WIDGET_STANDARD_SLOT_HEIGHT
-        else:
-            raise TypeError(f'Size multiplier must be of type int or float. Instead, type {type(_size)} was given.')
-        
     def _handle_events(self):
         pass
 
@@ -97,6 +111,3 @@ class Widget:
     def _check_mouse_over(self):
         if self._widget_rect.collidepoint(self._interface._mouse_pos):
             self._mouse_over = True
-
-#    def set_as_emitter(self):
-#        self._emitter = True
