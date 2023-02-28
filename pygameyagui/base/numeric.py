@@ -59,16 +59,6 @@ class Numeric(Widget):
         else:
             self._unit = ''
 
-    def _update_value(self, _value = None):
-        if _value is None:
-            _value = self._value
-        if self.upper_bound is not None:
-            _value = min(self.upper_bound, _value)
-        if self.lower_bound is not None:
-            _value = max(self.lower_bound, _value)
-        self._value = _value
-        return _value
-
     @property
     def value(self):
         return self._value
@@ -104,6 +94,16 @@ class Numeric(Widget):
             self._decimal_places = _decimal_places
         else:
             raise TypeError('Decimal places must be integer.')
+
+    def _update_value(self, _value = None):
+        if _value is None:
+            _value = self._value
+        if self.upper_bound is not None:
+            _value = min(self.upper_bound, _value)
+        if self.lower_bound is not None:
+            _value = max(self.lower_bound, _value)
+        self._value = _value
+        return _value
 
     def _label_with_unit(self, _label = None, _unit = None):
         if _label is None:
