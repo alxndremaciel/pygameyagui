@@ -19,6 +19,7 @@
     * .. autoattribute:: pygameyagui.constants.LABEL_MAX_SIZE_FACTOR
     * .. autoattribute:: pygameyagui.constants.LABEL_DEFAULT_SIZE_FACTOR
     * .. autoattribute:: pygameyagui.constants.WIDGET_STANDARD_SLOT_HEIGHT
+         :noindex:
 
 .. autoproperty:: pygameyagui.Label.enabled
 .. autoproperty:: pygameyagui.Label.alignment

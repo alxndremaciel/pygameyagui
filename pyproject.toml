@@ -18,5 +18,5 @@ doc = [
     "sphinx",
     "myst-parser",
     "sphinx-copybutton",
-    "furo",
+    "sphinx-sizzle-theme",
     ]
