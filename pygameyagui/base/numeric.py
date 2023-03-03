@@ -1,5 +1,6 @@
 import pygame
 from ..include import constants as ct
+from ..include.error import raise_type_error, raise_value_error
 from ..base.widget import Widget
 
 class Numeric(Widget):
@@ -25,31 +26,46 @@ class Numeric(Widget):
             raise_type_error(_power, 'power', 'int')
 
     @property
-    def upper_bound(self):
+    def upper_bound(self):        
+        '''Get or set the upper bound limit (int or float).
+        
+        Default value is **None** and this bound will be ignored if not set to a valid value. It should not be smaller than (:attr:`pygameyagui.Numeric.lower_bound`). The current value of the widget will be automatically forced to comply.
+        '''
         return self._upper_bound
 
     @upper_bound.setter
     def upper_bound(self, _upper_bound):
-        if isinstance(_upper_bound, int) or isinstance(_upper_bound, float):
-            self._upper_bound = _upper_bound
-            self._update_value()
-        else:
-            raise TypeError(f'Upper bound must be integer or float. Instead, type {type(_upper_bound)} was given.')       
+        if not (isinstance(_upper_bound, int) or isinstance(_upper_bound, float)):
+            raise_type_error(_upper_bound, 'upper_bound', 'integer or float')
+        if self._lower_bound is not None and _upper_bound < self._lower_bound:
+            raise_value_error(f'_upper_bound should not be smaller than _lower_bound. Current _lower_bound is {self._lower_bound}')
+        self._upper_bound = _upper_bound
+        self._update_value()   
 
     @property
-    def lower_bound(self):
+    def lower_bound(self):        
+        '''Get or set the lower bound limit (int or float).
+        
+        Default value is **None** and this bound will be ignored if not set to a valid value. It should not be bigger than (:attr:`pygameyagui.Numeric.upper_bound`). The current value of the widget will be automatically forced to comply.
+        '''
         return self._lower_bound
 
     @lower_bound.setter
     def lower_bound(self, _lower_bound):
-        if isinstance(_lower_bound, int) or isinstance(_lower_bound, float):
-            self._lower_bound = _lower_bound
-            self._update_value()
-        else:
-            raise TypeError(f'Lower bound must be integer or float. Instead, type {type(_lower_bound)} was given.')       
+        if not (isinstance(_lower_bound, int) or isinstance(_lower_bound, float)):
+            raise_type_error(_lower_bound, 'lower_bound', 'integer or float')
+        if self._upper_bound is not None and _lower_bound > self._upper_bound:
+            raise_value_error(f'_lower_bound should not be bigger than _upper_bound. Current _upper_bound is {self._upper_bound}')
 
+        self._lower_bound = _lower_bound
+        self._update_value()
+        
     @property
-    def unit(self):
+    def unit(self):        
+        '''Get or set the quantity unit (str).
+
+        Default value is a empty string.
+        '''
         return self._unit
 
     @unit.setter
@@ -61,14 +77,19 @@ class Numeric(Widget):
 
     @property
     def value(self):
+        '''Get (int or float) or set (int, float or str) the value.
+        
+        Default value is 0 (int). It will be forced to comply to upper and lower bounds if they are set.
+
+        See also: :attr:`pygameyagui.Numeric.upper_bound` and :attr:`pygameyagui.Numeric.lower_bound`
+        '''
         return self._value
 
     @value.setter
     def value(self, _value):
         if self._enabled:
-            '''This sets self._value which is a numeric value either int or float.
-            It receives value (default is 0) as argument that must be int, float or string'''
             if isinstance(_value, int) or isinstance(_value, float):
+                '''Enforces specific update method'''
                 self._update_value(_value)
             elif isinstance(_value, str):
                 '''It will try to cast string to int and if it fails it will try casting to float'''
@@ -82,10 +103,14 @@ class Numeric(Widget):
                         raise ValueError(f'Argument {_value} is string but can be neither cast to int nor to float')
             else:
                 '''If value is not int, float or string it will raise an exception'''
-                raise TypeError(f'Argument {_value} is not string, int or float. Argument type is {type(_value)}.')
+                raise_type_error(_value, 'value', 'int, float or str')
 
     @property
     def decimal_places(self):
+        '''Get or set the number of decimal places (int >= 0).
+        
+        Default value is 0 (int). This property influences the string representation of the numeric value. It does not influences or rounds the value for calculations.
+        '''
         return self._decimal_places
 
     @decimal_places.setter
@@ -93,7 +118,7 @@ class Numeric(Widget):
         if isinstance(_decimal_places, int):
             self._decimal_places = _decimal_places
         else:
-            raise TypeError('Decimal places must be integer.')
+            raise_type_error(_decimal_places, 'decimal_places', 'int')
 
     def _update_value(self, _value = None):
         if _value is None:

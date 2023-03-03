@@ -1,0 +1,3 @@
+Renomear modulo sparkline para spark_line ou class SparkLine para Sparkline
+Mover propriedade value de sparkline para chart.
+Verificar o mecanismo de _dataset_length 

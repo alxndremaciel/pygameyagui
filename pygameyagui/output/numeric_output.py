@@ -4,6 +4,14 @@ from ..include import draw
 from ..base.numeric import Numeric
 
 class NumericOutput(Numeric):
+    """This class creates a Numeric Output widget.
+
+    :param toolbox: The toolbox that will host the widget.
+    :type toolbox: :class:`pygameyagui.Toolbox`
+    
+    :param label: The text to be shown in the Numeric Output widget.
+    :type label: str
+    """
     def __init__(self, toolbox, label):
         super().__init__(toolbox = toolbox, label = label)
         self._min_size = ct.NUMERIC_OUTPUT_MIN_SIZE_FACTOR

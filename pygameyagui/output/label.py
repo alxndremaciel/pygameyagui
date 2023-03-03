@@ -4,12 +4,12 @@ from ..include import draw
 from ..base.widget import Widget
 
 class Label(Widget):
-    """This class creates a label widget.
+    """This class creates a Label widget.
 
     :param toolbox: The toolbox that will host the widget.
     :type toolbox: :class:`pygameyagui.Toolbox`
     
-    :param label: The text to be shown in the label widget.
+    :param label: The text to be shown in the Label widget.
     :type label: str
     """
     def __init__(self, toolbox, label):

@@ -11,20 +11,30 @@ class SparkLine(Chart):
         self.size = ct.SPARKLINE_DEFAULT_SIZE_FACTOR
         self._dataset = []
         self._type = 'line'
-        self._dataset_len = None
         self._color = 'red'
 
     @property
     def value(self):
-        return self._value
+        '''Get the last value of the dataset (int or float) or None if dataset is empty.
+
+        Overrides :attr:`pygameyagui.Numeric.value`.
+        
+        Default value is None. It is a read-only property.
+        '''
+        if self._data_set:
+            return self._dataset[-1]
+        else:
+            return None
 
     @value.setter
     def value(self, _value):
-        if self._enabled:
-            raise ValueError(f'value can not be set for sparkline chart. Use the method update_dataset().')
+        raise ValueError(f'value can not be set for sparkline chart. Use the method update_dataset().')
 
     @property
     def color(self):
+        '''Get or set the graph color (str).
+
+        Note: Accepted values are **red**, **green**, **yellow** or **blue**. Default value is **red**.'''
         return self._color
 
     @color.setter
@@ -34,15 +44,27 @@ class SparkLine(Chart):
         else:
             raise ValueError(f'color can only be set to red, green, yellow or blue. Instead, {_color} was given.')
 
-    @property
-    def dataset_len(self):
-        return self._dataset_len
+    def update_dataset(self, value):
+        '''Use this to add a value to the dataset.
 
-    @dataset_len.setter
-    def dataset_len(self, _dataset_len):
-        if not isinstance(_dataset_len, int):
-            raise TypeError(f'dataset_len only accepts type int. Instead, argument of type {type(_dataset_len)} was given.')
-        self._dataset_len = _dataset_len
+        :param value: A value to be added
+        :type value: int or float
+
+        :rtype: NoneType
+        '''
+        if self._enabled:
+            if not isinstance(value, int) and not isinstance(value, float):
+                raise TypeError(f'update_dataset only accepts type int or float. Instead, argument of type {type(value)} was given.')
+
+            value = self._update_value(value)
+            self._dataset.append(value)
+            if len(self._dataset) > self._chart_width:
+                self._dataset.pop(0)
+
+            self._data_min_y_value = min(self._dataset)
+            self._data_max_y_value = max(self._dataset)
+            self._data_min_x_value = 0
+            self._data_max_x_value = len(self._dataset)
 
     def _graphing(self):
         if self._enabled:
@@ -99,26 +121,6 @@ class SparkLine(Chart):
             start = self._lerp_x(self._dataset.index(_min)), self._lerp_y(_min) + 2
             end = self._lerp_x(self._dataset.index(_min)), self._lerp_y(_min) + ct.CHART_LABEL_PADDING_VERTICAL
             pygame.draw.line(self._surface, self._fill_color, start, end, width=ct.SPARKLINE_LINE_WIDTH)
-
-    def update_dataset(self, _value):
-        if self._enabled:
-            if not isinstance(_value, int) and not isinstance(_value, float):
-                raise TypeError(f'update_dataset only accepts type int or float. Instead, argument of type {type(_value)} was given.')
-            
-            if self._dataset_len is None:
-                _dataset_len = self._toolbox._toolbox_width
-            else:
-                _dataset_len = min(self._chart_width, self._dataset_len)
-
-            _value = self._update_value(_value)
-            self._dataset.append(_value)
-            if len(self._dataset) > _dataset_len:
-                self._dataset.pop(0)
-
-            self._data_min_y_value = min(self._dataset)
-            self._data_max_y_value = max(self._dataset)
-            self._data_min_x_value = 0
-            self._data_max_x_value = len(self._dataset)
 
     def _show(self):
         self._show_label()

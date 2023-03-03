@@ -13,6 +13,8 @@ from .include import constants
 from .include import draw
 from .include.error import raise_type_error, raise_value_error
 from .base.widget import Widget
+from .base.numeric import Numeric
+from .base.chart import Chart
 from .base.variables import Variable
 from .input.button import Button
 from .input.button_icon import ButtonIcon
@@ -25,8 +27,18 @@ from .input.numeric_input import NumericInput
 from .output.label import Label
 from .output.numeric_output import NumericOutput
 from .output.tank_meter import TankMeter
-from .graph.sparkline import SparkLine
+from .output.sparkline import SparkLine
 from .base.toolbox import Toolbox
+
+__all__ = [
+    "constants",
+    "Toolbox",
+    "Widget",
+    "Numeric",
+    "Chart",
+    "Label",
+    "NumericOutput",
+    "SparkLine"]
 
 class Interface:
     """This is the class that has to be instantiated once and only once to
@@ -169,56 +181,56 @@ class Interface:
         return self._window_width
 
     @property
-    def screen_height(self):
+    def window_height(self):
         '''Get the window height in pixels (int).'''
         return self._window_height
 
     @property
-    def screen_center(self):
+    def window_center(self):
         '''Get the pair of x and y coordinate for the center of the window in pixels (tuple).'''
         return int(0.5*self._window_width), int(0.5*self._window_height)
 
     @property
-    def screen_toplef(self):
+    def window_toplef(self):
         '''Get the pair of x and y coordinate for the top left corner of the window in pixels (tuple).'''
 
     @property        
-    def screen_topright(self):
+    def window_topright(self):
         '''Get the pair of x and y coordinate for the top right corner of the window in pixels (tuple).'''
         return self._window_width, 0
 
     @property
-    def screen_bottomleft(self):
+    def window_bottomleft(self):
         '''Get the pair of x and y coordinate for the bottom left corner of the window in pixels (tuple).'''
         return 0, self._window_height
 
     @property
-    def screen_bottomright(self):
+    def window_bottomright(self):
         '''Get the pair of x and y coordinate for the bottom right corner of the window in pixels (tuple).'''
         return self._window_width, self._window_height
 
     @property
-    def screen_midtop(self):
+    def window_midtop(self):
         '''Get the pair of x and y coordinate for the mid top position of the window in pixels (tuple).'''
         return int(0.5*self._window_width), 0
 
     @property
-    def screen_midbottom(self):
+    def window_midbottom(self):
         '''Get the pair of x and y coordinate for the mid bottom position of the window in pixels (tuple).'''
         return int(0.5*self._window_width), self._window_height
 
     @property
-    def screen_midleft(self):
+    def window_midleft(self):
         '''Get the pair of x and y coordinate for the mid left position of the window in pixels (tuple).'''
         return 0, int(0.5*self._window_height)
 
     @property
-    def screen_midright(self):
+    def window_midright(self):
         '''Get the pair of x and y coordinate for the mid right position of the window in pixels (tuple).'''
         return self._window_width, int(0.5*self._window_height)
 
     @property
-    def screen_rect(self):
+    def window_rect(self):
         '''Get the Pygame Rect for the window (Pygame.Rect).'''
         return pygame.Rect(0,0,self._window_width,self._window_height)
 
@@ -243,9 +255,9 @@ class Interface:
         return self._surface
 
     @property
-    def screen_bg_color(self):
+    def window_bg_color(self):
         '''Get the current window background color in the format RGB (tuple)'''
-        return self._screen_bg_color
+        return self._window_bg_color
 
     @property
     def time(self):
@@ -290,7 +302,7 @@ class Interface:
             raise_type_error(y, 'point[1]', 'int or float')
 
         return x >= 0 and x <= self.window_width and \
-               y >= 0 and y <= self.screen_height
+               y >= 0 and y <= self.window_height
 
     def pause(self):
         '''Use this to pause the simulation update process. 
@@ -676,9 +688,3 @@ class Interface:
             self._average_fps += (added - removed) / ct.INTERFACE_FPS_AVERAGE
         elif len(self._fpss) == ct.INTERFACE_FPS_AVERAGE:
             self._average_fps = sum(self._fpss)/ct.INTERFACE_FPS_AVERAGE
-
-__all__ = [
-    "constants",
-    "Toolbox",
-    "Label",
-    "NumericOutput"]

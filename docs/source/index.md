@@ -4,7 +4,7 @@
 % contain the root `toctree` directive.
 
 # Pygame-YaGUI
-```{image} pygame-yagui-widgets.png
+```{image} images/pygame-yagui-widgets.png
 :alt: Pygame-YaGUI Widgets
 :width: 250px
 :align: center
@@ -17,12 +17,16 @@
 
 ```{toctree}
 :caption: 'Contents:'
-:maxdepth: 3
+:maxdepth: 2
 
 overview
 usage
 reference/interface
 reference/toolbox
-reference/output_widgets/label
-reference/output_widgets/numeric_output
+reference/base/widget
+reference/base/numeric
+reference/base/chart
+reference/output/label
+reference/output/numeric_output
+reference/output/sparkline
 ```

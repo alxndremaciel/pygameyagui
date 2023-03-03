@@ -12,7 +12,7 @@ The image below shows an example of **Pygame-YaGUI** in action. The program is a
 
 **Pygame-YaGUI** is responsible for providing the small windows with its widgets, the controls at the top right corner and the status bar at the bottom. Nothing related to the drawing of the disc, confinement and arrows is supported by **Pygame-YaGUI** (yet!) and it is implemented by the rest of the simulation.
 
-```{image} pygame-yagui-example.png
+```{image} images/pygame-yagui-example.png
 :alt: Pygame-YaGUI Example
 :width: 700px
 :align: center
