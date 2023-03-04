@@ -7,7 +7,7 @@
 
 ```{admonition} Inheritance
 :class: info 
-Label class inherits from {py:class}`pygameyagui.Widget`.
+Label class inherits from {ref}`Widget class<Widget Documentation>`.
 ```
 
 ## Label methods
@@ -28,7 +28,7 @@ See inherited {ref}`Widget properties`
 
 ## Label constants
 ```{eval-rst}
-    * .. autoattribute:: pygameyagui.constants.LABEL_MIN_SIZE_FACTOR
-    * .. autoattribute:: pygameyagui.constants.LABEL_MAX_SIZE_FACTOR
-    * .. autoattribute:: pygameyagui.constants.LABEL_DEFAULT_SIZE_FACTOR
+.. autoattribute:: pygameyagui.constants.LABEL_MIN_SIZE_FACTOR
+.. autoattribute:: pygameyagui.constants.LABEL_MAX_SIZE_FACTOR
+.. autoattribute:: pygameyagui.constants.LABEL_DEFAULT_SIZE_FACTOR
 ```

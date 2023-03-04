@@ -4,6 +4,14 @@ from ..include import draw
 from ..base.chart import Chart
 
 class SparkLine(Chart):
+    """This class creates a SparkLine widget.
+
+    :param toolbox: The toolbox that will host the widget.
+    :type toolbox: :class:`pygameyagui.Toolbox`
+    
+    :param label: The text to be shown in the SparkLine widget.
+    :type label: str
+    """
     def __init__(self, toolbox, label):
         super().__init__(toolbox = toolbox, label = label)
         self._min_size = ct.SPARKLINE_MIN_SIZE_FACTOR
@@ -21,7 +29,7 @@ class SparkLine(Chart):
         
         Default value is None. It is a read-only property.
         '''
-        if self._data_set:
+        if self._dataset:
             return self._dataset[-1]
         else:
             return None

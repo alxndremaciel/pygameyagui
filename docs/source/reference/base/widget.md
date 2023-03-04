@@ -1,12 +1,9 @@
 # Widget Documentation
 
 ## Widget class
-```{eval-rst} 
-.. autoclass:: pygameyagui.Widget
-```
 ```{admonition} Base Class
 :class: warning 
-This is a base class and should not be instantiated.
+This is a base class and should not be instantiated directly.
 ```
 
 ## Widget methods

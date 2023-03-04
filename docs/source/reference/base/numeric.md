@@ -5,13 +5,10 @@
 :class: warning 
 This is a base class and should not be instantiated directly.
 ```
-```{eval-rst}
-.. autoclass:: pygameyagui.Numeric
-```
 
 ```{admonition} Inheritance
 :class: info 
-Numeric class inherits from {py:class}`pygameyagui.Widget`.
+Numeric class inherits from {ref}`Widget class<Widget Documentation>`.
 ```
 ## Numeric methods
 ```{admonition} Nothing to see here

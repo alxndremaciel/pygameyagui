@@ -7,7 +7,7 @@
 
 ```{admonition} Inheritance
 :class: info 
-SparkLine class inherits from {py:class}`pygameyagui.Chart`.
+SparkLine class inherits from {ref}`Chart class<Chart Documentation>`.
 ```
 
 ## SparkLine methods
@@ -18,6 +18,7 @@ See inherited {ref}`Chart methods`
 ```{eval-rst}
 .. automethod:: pygameyagui.SparkLine.update_dataset
 ```
+
 ## SparkLine properties
 ```{admonition} Inheritance
 :class: info 
@@ -27,6 +28,7 @@ See inherited {ref}`Chart properties`
 .. autoattribute:: pygameyagui.SparkLine.value
 .. autoattribute:: pygameyagui.SparkLine.color
 ```
+
 ## SparkLine constants
 ```{eval-rst}
 .. autoattribute:: pygameyagui.constants.SPARKLINE_MIN_SIZE_FACTOR

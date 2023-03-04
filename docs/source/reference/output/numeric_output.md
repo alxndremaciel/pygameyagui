@@ -7,7 +7,7 @@
 
 ```{admonition} Inheritance
 :class: info 
-Label class inherits from {py:class}`pygameyagui.Numeric`.
+Label class inherits from {ref}`Numeric class<Numeric Documentation>`.
 ```
 
 ## Numeric Output methods
