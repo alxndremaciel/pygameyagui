@@ -15,32 +15,84 @@ class Interval(Numeric):
         self._color_limits = None
 
     @property
-    def step(self):
+    def step(self):        
+        '''Get the step (int or float).
+        
+        Default value is **1**.
+        '''
         return self._step
 
     @property
-    def range(self):
+    def range(self):        
+        '''Get the list with all values in the range (list).
+        
+        Default value is a integer range from 0 to 100 with step 1.
+        '''
         return self._range
     
     @property
-    def color_limits(self):
+    def color_limits(self):  
+        '''Get a pair of values for the color limits (tuple).
+        
+        Default value is **None**.
+
+        If {py:attr}`pygameyagui.Interval.use_color_limits` is set to True, then the interval will be divided in three zones:
+        
+        Green Zone is for values between lower_bound and color_limits[0].
+
+        Yellow Zone is for values between color_limits[0] and color_limits[1].
+
+        Red Zone is for values between color_limits[1] and upper_bound.
+        '''
         return self._color_limits
 
-    def set_limits(self, _lower_bound, _upper_bound, _step, color_limits=None):       
+    @property
+    def use_color_limits(self):
+        '''Get or set if the interval will use color limits (bool).
+        
+        Default value is **False**.
+
+        See also: :attr:`pygameyagui.Interval.color_limits`
+        '''
+        return self._use_color_limits
+    
+    @use_color_limits.setter
+    def use_color_limits(self, _use):
+        if not isinstance(_use, bool):
+            raise_type_error(_use, 'use_color_limts', 'bool')
+        self._use_color_limits = _use
+
+    def set_limits(self, lower_bound, upper_bound, step, color_limits=None):
+        '''Use this to set the interval properties.
+
+        :param lower_bound: The value to start the interval
+        :type lower_bound: int or float
+
+        :param upper_bound: The value to end the interval
+        :type upper_bound: int or float
+
+        :param step: The separation between two values on the interval
+        :type step: int or float
+
+        :param color_limits: A pair of values to create color zones in the interval
+        :type color_limits: tuple
+
+        :rtype: NoneType
+        '''
         if self._is_integer_only:
-            if not isinstance(_lower_bound, int):
-                raise_type_error(_lower_bound, 'lower_bound', 'int')
-            if not isinstance(_upper_bound, int):
-                raise_type_error(_upper_bound, 'upper_bound', 'int')
-            if not isinstance(_step, int):
-                raise_type_error(_step, 'step', 'int')
+            if not isinstance(lower_bound, int):
+                raise_type_error(lower_bound, 'lower_bound', 'int')
+            if not isinstance(upper_bound, int):
+                raise_type_error(upper_bound, 'upper_bound', 'int')
+            if not isinstance(step, int):
+                raise_type_error(step, 'step', 'int')
         else:
-            if not (isinstance(_lower_bound, int) or isinstance(_lower_bound, float)):
-                raise_type_error(_lower_bound, 'lower_bound', 'int or float')
-            if not (isinstance(_upper_bound, int) or isinstance(_upper_bound, float)):
-                raise_type_error(_upper_bound, 'upper_bound', 'int or float')
-            if not (isinstance(_step, int) or isinstance(_step, float)):
-                raise_type_error(_step, 'step', 'int or float')
+            if not (isinstance(lower_bound, int) or isinstance(lower_bound, float)):
+                raise_type_error(lower_bound, 'lower_bound', 'int or float')
+            if not (isinstance(upper_bound, int) or isinstance(upper_bound, float)):
+                raise_type_error(upper_bound, 'upper_bound', 'int or float')
+            if not (isinstance(step, int) or isinstance(step, float)):
+                raise_type_error(step, 'step', 'int or float')
 
         if self._use_color_limits:
             if color_limits is not None:
@@ -62,25 +114,25 @@ class Interval(Numeric):
                     if not (isinstance(_yellow_limit, int) or isinstance(_yellow_limit, float)):
                         raise_type_error(_yellow_limit, 'color_limits[1]', 'int or float')
 
-                if _lower_bound >= _green_limit:
-                    raise_value_error(f'lower_bound value ({_lower_bound}) should be smaller than color_limits[0] ({_green_limit}).')
+                if lower_bound >= _green_limit:
+                    raise_value_error(f'lower_bound value ({lower_bound}) should be smaller than color_limits[0] ({_green_limit}).')
                 if _green_limit >= _yellow_limit:
                     raise_value_error(f'color_limits[0] ({_green_limit}) should be smaller than color_limits[1] ({_yellow_limit}).')
-                if _yellow_limit >= _upper_bound:
-                    raise_value_error(f'color_limits[1] ({_yellow_limit}) should be smaller than upper_bound value ({_upper_bound}).')
+                if _yellow_limit >= upper_bound:
+                    raise_value_error(f'color_limits[1] ({_yellow_limit}) should be smaller than upper_bound value ({upper_bound}).')
 
                 self._color_limits = color_limits
             else:
-                if _lower_bound >= _upper_bound:
-                    raise_value_error(f'lower_bound ({_lower_bound}) should be smaller than upper_bound value ({_upper_bound}).')
+                if lower_bound >= upper_bound:
+                    raise_value_error(f'lower_bound ({lower_bound}) should be smaller than upper_bound value ({upper_bound}).')
 
-        self._lower_bound = _lower_bound
-        self._upper_bound = _upper_bound
-        self._step = _step
-        if isinstance(_lower_bound, float) or isinstance(_lower_bound, float) or isinstance(_step, float):
-            self._range = self._float_range(_lower_bound, _upper_bound, _step)
+        self._lower_bound = lower_bound
+        self._upper_bound = upper_bound
+        self._step = step
+        if isinstance(lower_bound, float) or isinstance(lower_bound, float) or isinstance(step, float):
+            self._range = self._float_range(lower_bound, upper_bound, step)
         else:
-            self._range = self._int_range(_lower_bound, _upper_bound, _step)
+            self._range = self._int_range(lower_bound, upper_bound, step)
 
         self._update_value()
 

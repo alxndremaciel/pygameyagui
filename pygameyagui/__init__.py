@@ -15,6 +15,7 @@ from .include.error import raise_type_error, raise_value_error
 from .base.widget import Widget
 from .base.numeric import Numeric
 from .base.chart import Chart
+from .base.interval import Interval
 from .base.variables import Variable
 from .input.button import Button
 from .input.button_icon import ButtonIcon
@@ -36,6 +37,7 @@ __all__ = [
     "Widget",
     "Numeric",
     "Chart",
+    "Interval",
     "Label",
     "NumericOutput",
     "SparkLine"]

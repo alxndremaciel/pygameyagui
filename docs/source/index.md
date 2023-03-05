@@ -26,6 +26,7 @@ reference/toolbox
 reference/base/widget
 reference/base/numeric
 reference/base/chart
+reference/base/interval
 reference/output/label
 reference/output/numeric_output
 reference/output/sparkline

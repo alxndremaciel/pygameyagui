@@ -11,17 +11,12 @@ Label class inherits from {ref}`Widget class<Widget Documentation>`.
 ```
 
 ## Label methods
-```{admonition} Inheritance
+```{admonition} Nothing to see here
 :class: info 
-See inherited {ref}`Widget methods`
+Label class has no methods.
 ```
 
 ## Label properties
-```{admonition} Inheritance
-:class: info 
-See inherited {ref}`Widget properties`
-```
-
 ```{eval-rst}
 .. autoproperty:: pygameyagui.Label.alignment
 ```

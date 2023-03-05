@@ -5,7 +5,6 @@
 :class: warning 
 This is a base class and should not be instantiated directly.
 ```
-
 ```{admonition} Inheritance
 :class: info 
 Numeric class inherits from {ref}`Widget class<Widget Documentation>`.

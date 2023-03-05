@@ -11,15 +11,15 @@ Label class inherits from {ref}`Numeric class<Numeric Documentation>`.
 ```
 
 ## Numeric Output methods
-```{admonition} Inheritance
+```{admonition} Nothing to see here
 :class: info 
-See inherited {ref}`Numeric methods`
+NumericOutput class has no methods.
 ```
 
 ## Numeric Output properties
-```{admonition} Inheritance
+```{admonition} Nothing to see here
 :class: info 
-See inherited {ref}`Numeric properties`
+NumericOutput class has no properties.
 ```
 
 ## Numeric Output constants

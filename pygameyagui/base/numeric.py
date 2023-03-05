@@ -11,19 +11,6 @@ class Numeric(Widget):
         self._lower_bound = None
         self.decimal_places = 0
         self._unit = ''
-        self._power = 0
-
-    # TODO: IMPLEMENTAR POTENCIA DE 10
-    @property
-    def power(self):
-        return self._power
-
-    @power.setter
-    def power(self, _power):
-        if isinstance(_power, int):
-            self._power = _power
-        else:
-            raise_type_error(_power, 'power', 'int')
 
     @property
     def upper_bound(self):        
