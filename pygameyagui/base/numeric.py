@@ -123,6 +123,8 @@ class Numeric(Widget):
     def _update_value(self, _value = None):
         if _value is None:
             _value = self._value
+        if self._emitter and not self._value == _value:
+            self._interface._emitting = self
         if self.upper_bound is not None:
             _value = min(self.upper_bound, _value)
         if self.lower_bound is not None:
