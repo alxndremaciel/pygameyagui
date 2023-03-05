@@ -40,7 +40,8 @@ __all__ = [
     "Interval",
     "Label",
     "NumericOutput",
-    "SparkLine"]
+    "SparkLine",
+    "TankMeter",]
 
 class Interface:
     """This is the class that has to be instantiated once and only once to

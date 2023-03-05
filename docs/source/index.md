@@ -30,4 +30,5 @@ reference/base/interval
 reference/output/label
 reference/output/numeric_output
 reference/output/sparkline
+reference/output/tank_meter
 ```
