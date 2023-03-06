@@ -19,7 +19,7 @@ class Widget:
     def size(self):
         '''Get or set the vertical size factor of the widget (int or float).
         
-        This is a base class property that is useful in some widgets and it is limited by the constants below. The height in pixels of the widget is calculated by multiplicating size to the WIDGET_STANDARD_SLOT_HEIGHT.
+        This is a base class property that is useful in some widgets and it is limited by the constants below. The height in pixels of the widget is calculated by multiplicating size to the :attr:`pygameyagui.constants.WIDGET_STANDARD_SLOT_HEIGHT`.
 
         The size factor will be internally limited (min and max values) by SIZE_FACTOR constants of each widget. Refer to the constants listing of each widget to get the values.
         '''

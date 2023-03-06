@@ -36,7 +36,7 @@ class Interval(Numeric):
         
         Default value is **None**.
 
-        If {py:attr}`pygameyagui.Interval.use_color_limits` is set to True, then the interval will be divided in three zones:
+        If :attr:`pygameyagui.Interval.use_color_limits` is set to True, then the interval will be divided in three zones:
         
         Green Zone is for values between lower_bound and color_limits[0].
 
