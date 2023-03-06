@@ -42,7 +42,8 @@ __all__ = [
     "NumericOutput",
     "SparkLine",
     "TankMeter",
-    "Button",]
+    "Button",
+    "CheckBox",]
 
 class Interface:
     """This is the class that has to be instantiated once and only once to

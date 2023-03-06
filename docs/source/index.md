@@ -32,4 +32,5 @@ reference/output/numeric_output
 reference/output/sparkline
 reference/output/tank_meter
 reference/input/button
+reference/input/checkbox
 ```

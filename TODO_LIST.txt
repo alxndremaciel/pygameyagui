@@ -3,3 +3,5 @@ Mover propriedade value de sparkline para chart.
 Verificar o mecanismo de _dataset_length
 
 Implementar power_of_10 para numeric
+
+Verificar uso de raise_type_error e raise_value_error em todos widgets

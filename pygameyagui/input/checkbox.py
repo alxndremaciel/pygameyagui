@@ -1,43 +1,56 @@
 import pygame
 from ..include import constants as ct
+from ..include.error import raise_type_error, raise_value_error
 from ..include import draw
 from ..base.widget import Widget
 
 class CheckBox(Widget):
+    """This class creates a CheckBox widget.
+
+    :param toolbox: The toolbox that will host the widget.
+    :type toolbox: :class:`pygameyagui.Toolbox`
+    
+    :param label: The text to be shown in the CheckBox widget.
+    :type label: str
+    """
     def __init__(self, toolbox, label):
         super().__init__(toolbox = toolbox, label = label)
         self._min_size = ct.CHECKBOX_MIN_SIZE_FACTOR
         self._max_size = ct.CHECKBOX_MAX_SIZE_FACTOR
         self.size = ct.CHECKBOX_DEFAULT_SIZE_FACTOR
-        self.checked = False
+        self._checked = False
         self._can_be_emitter = True
         
     @property
     def checked(self):
+        '''Get or set the the state of a CheckBox (bool).'''
         return self._checked
 
     @checked.setter
     def checked(self, _checked):
         if self._enabled:
             if isinstance(_checked, bool):
-                self._checked = _checked
+                if _checked:
+                    self._activate()
+                else:
+                    self._deactivate()
             else:
-                raise TypeError(f'checked expect a boolean as argument. Instead, type {type(_checked)} was given.')
+                raise_type_error(_checked, 'checked', 'bool')
 
-    def activate(self):
+    def _activate(self):
         if self._enabled:
             self._checked = self._trigger_emitter(True)
 
-    def deactivate(self):
+    def _deactivate(self):
         if self._enabled:
             self._checked = self._trigger_emitter(False)
 
-    def toggle(self):
+    def _toggle(self):
         if self._enabled:
             if self._checked:
-                self.deactivate()
+                self._deactivate()
             else:
-                self.activate()
+                self._activate()
 
     def _trigger_emitter(self, _checked):
         if self._emitter and not self._checked == _checked:
@@ -71,6 +84,6 @@ class CheckBox(Widget):
                 mouse_pos = pygame.mouse.get_pos()
                 if event.button == 1:
                     if self.ckbox_rect.collidepoint(mouse_pos):
-                        self.toggle()
+                        self._toggle()
                     if self.label_rect.collidepoint(mouse_pos):
-                        self.toggle()
+                        self._toggle()
