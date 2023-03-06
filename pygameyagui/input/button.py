@@ -4,6 +4,14 @@ from ..include import draw
 from ..base.widget import Widget
 
 class Button(Widget):
+    """This class creates a Button widget.
+
+    :param toolbox: The toolbox that will host the widget.
+    :type toolbox: :class:`pygameyagui.Toolbox`
+    
+    :param label: The text to be shown in the Button widget.
+    :type label: str
+    """
     def __init__(self, toolbox, label):
         super().__init__(toolbox = toolbox, label = label)
         self._min_size = ct.BUTTON_MIN_SIZE_FACTOR
@@ -14,6 +22,11 @@ class Button(Widget):
         
     @property
     def clicked(self):
+        '''Get or set the the state of a Button (bool).
+
+        Default value is **False** and it is toggled to **True** if there is a pygame.MOUSEBUTTONUP event during the button being clicked.
+
+        Note: This property is always set back to **False** every iteration of the event loop.'''
         return self._clicked
 
     @clicked.setter
